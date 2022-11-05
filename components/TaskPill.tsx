@@ -35,7 +35,7 @@ const TaskPill = ({ user, locale }: Props) => {
     <Button intent="primary" onClick={handleTask} fullWidth noPadding>
       <div className="flex items-center justify-center">
         <div className="px-2 text-left">{translations.title}</div>
-        <CheckBox checked={completed} />
+        <CheckBox checked={completed} readOnly />
         <div className="pt-2 pl-2">
           <img
             className="w-14 h-14"
