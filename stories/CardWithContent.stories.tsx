@@ -7,18 +7,13 @@ import { CardWithImage, Props as CardImageProps } from "../components/ui/Card/Ca
 const conf = {
     title: 'CardWithContent',
     components: { Card, CardTitle, CardWithImage },
-    argTypes: {
-        bgGray: {
-            type: 'boolean'
-        }
-    }
 } as ComponentMeta<(typeof Card) & (typeof CardTitle) & (typeof CardWithImage)>;
 
 export default conf;
 
 const Template: ComponentStory<(args: (CardProps & CardTitleProps & CardImageProps)) => JSX.Element> = (args) => {
     return (
-        <Card bgGray={args.bgGray}>
+        <Card isActive={args.isActive}>
             <CardTitle titleTextColor={args.titleTextColor}>
                 Santeri 
             </CardTitle>
@@ -31,8 +26,16 @@ const Template: ComponentStory<(args: (CardProps & CardTitleProps & CardImagePro
 
 export const Gray = Template.bind({});
 Gray.args = {
-    bgGray: true,
+    isActive: 'primaryActive',
     titleTextColor: 'black',
     textColor: 'black',
     imageAlt: 'hieno kuva'
 };
+
+export const PrimNon = Template.bind({})
+PrimNon.args ={
+  isActive: 'primaryNonActive',
+  titleTextColor: 'black',
+  textColor: 'black',
+  imageAlt: 'hieno kuva'
+}
