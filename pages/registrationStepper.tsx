@@ -14,7 +14,7 @@ export default function RegistrationStepper() {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit: (data: any) => Promise<void> = async (data: any) => {
     try {
       setLoading(true);
       const res = await fetch("/api/userProperties", {
