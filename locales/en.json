@@ -4,7 +4,9 @@
     "next": "Next",
     "back": "Back",
     "finish": "Finish",
-    "register": "Register"
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout"
   },
   "registration": {
     "steps": {
