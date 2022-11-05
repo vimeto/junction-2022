@@ -58,7 +58,7 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
       feedbackData.append("inputValue", data.inputValue);
       feedbackData.append("enumValue", data.enumValue);
       feedbackData.append("share", data.share);
-      if (data.images.length) {
+      if (data.images?.length) {
         feedbackData.append("file", data.images.length ? data.images[0] : undefined);
       }
       console.log(data);
