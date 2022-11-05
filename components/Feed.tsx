@@ -47,8 +47,8 @@ const Feed = ({ friendPromps }: Props) => {
           <div className="pb-4" key={p.id}>
             <Card>
               <CardTitle>{p.user.name}</CardTitle>
-              {p.imageUrl ? (
-                <CardWithImage imageUrl={p.imageUrl}>
+              {p.imageSecureURL ? (
+                <CardWithImage imageUrl={p.imageSecureURL}>
                   <div className="font-bold mb-1">{translations.title}</div>
                   {p.inputValue}
                 </CardWithImage>

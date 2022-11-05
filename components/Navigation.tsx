@@ -9,7 +9,7 @@ const Navigation: React.FC = () => {
   const isActive: (pathname: string) => (boolean | null | undefined) = (pathname: string) => router.pathname === pathname;
   const { data: session, status } = useSession()
 
-  if (!session) {
+  if (!session?.user) {
     return <></>;
   }
 
