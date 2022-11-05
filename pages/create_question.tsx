@@ -15,7 +15,11 @@ const CreateQuestion: NextPage = () => {
       inputTitle: "",
       imageButton: "",
       submit: "",
-      enumValues: {} as Record<number, string>,
+      enumValues: {
+        1: "",
+        2: "",
+        3: ""
+      },
     },
     fi: {
       title: "",
@@ -23,7 +27,11 @@ const CreateQuestion: NextPage = () => {
       inputTitle: "",
       imageButton: "",
       submit: "",
-      enumValues: {} as Record<number, string>,
+      enumValues: {
+        1: "",
+        2: "",
+        3: ""
+      },
     },
   });
 
@@ -43,9 +51,17 @@ const CreateQuestion: NextPage = () => {
     const newvalue = event.target.value;
 
     const oldEnums = translations[locale].enumValues;
-    const newEnums = { ...oldEnums, enumIndex: newvalue }
+    const newEnums = { ...oldEnums, [enumIndex]: newvalue }
 
     setTranslations({ ...translations, [locale]: { ...(translations[locale]), enumValues: newEnums  } })
+  }
+
+  const submitForm = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    console.log("submitting")
+    console.log(activity, rarity, feedbackType);
+    console.log(translations);
   }
 
   return (
@@ -162,6 +178,9 @@ const CreateQuestion: NextPage = () => {
           value={translations.fi.enumValues[3]}
           onChange={(event) => onTranslationsEnum(event, "fi", 3)}
           />
+        <button onClick={submitForm}>
+          submit
+        </button>
         {/* <div>
           <p>Rarity level</p>
           <div>

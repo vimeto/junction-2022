@@ -27,21 +27,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       email: session.user.email || ""
     },
     include: {
-      following: {
-        include: {
-          promptInstances: {
-            where: {
-              completed: false
-            },
-            include: {
-              prompt: true
-            },
-            orderBy: {
-              date: 'desc'
-            }
-          }
-        }
-      }
+      following: true
+    }
+  })
+
+  const friendPrompts = await prisma.promptInstance.findMany({
+    where: {
+      userId: {
+        in: user?.following.map((u) => u.id)
+      },
+      shared: true,
+    },
+    orderBy: {
+      date: 'desc'
     }
   })
 
