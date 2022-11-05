@@ -33,10 +33,12 @@ const Feed = () => {
   return (
     <div>
       {test.map((p) => (
-        <Card>
-          <CardTitle>{p.name}</CardTitle>
-          <CardWithImage imageAlt={p.imageSrc}>{p.description}</CardWithImage>
-        </Card>
+        <div className="pb-4">
+          <Card>
+            <CardTitle>{p.name}</CardTitle>
+            <CardWithImage imageAlt={p.imageSrc}>{p.description}</CardWithImage>
+          </Card>
+        </div>
       ))}
     </div>
   );
