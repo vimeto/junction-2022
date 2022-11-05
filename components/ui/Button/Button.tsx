@@ -1,11 +1,11 @@
 import { cva, VariantProps } from "class-variance-authority";
 
 const buttonStyles = cva(
-  "flex items-center justify-center px-4 py-2 rounded-2xl font-medium focus:outline-none",
+  "flex items-center justify-center px-4 py-2 rounded-full font-medium focus:outline-none",
   {
     variants: {
       intent: {
-        primary: "bg-green-200 hover:bg-green-300",
+        primary: "bg-blue-300 hover:bg-blue-500",
         secondary: "bg-gray-200",
         danger: "bg-red-500",
       },
@@ -16,7 +16,10 @@ const buttonStyles = cva(
         true: "py-0",
       },
       btnSize: {
-        large: "px-6 py-4",
+        large: "w-80 py-4",
+      },
+      textColor: {
+        white: "text-white",
       },
     },
     defaultVariants: {
@@ -35,11 +38,18 @@ export function Button({
   type,
   btnSize,
   noPadding,
+  textColor,
   ...props
 }: Props) {
   return (
     <button
-      className={buttonStyles({ intent, fullWidth, btnSize, noPadding })}
+      className={buttonStyles({
+        intent,
+        fullWidth,
+        btnSize,
+        noPadding,
+        textColor,
+      })}
       {...props}
     />
   );
