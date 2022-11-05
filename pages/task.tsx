@@ -1,14 +1,17 @@
-import { Button } from "@ui/Button/Button";
-import { Card } from "@ui/Card/Card";
-import { CardText } from "@ui/Card/CardText";
-import { CardTitle } from "@ui/Card/CardTitle";
-import { TextArea } from "@ui/TextArea";
+import { AnimatePresence, motion } from "framer-motion";
 import router from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BearWithBubble from "../components/BearWithBubble";
+import NewTask from "../components/NewTask";
+import TaskComponent from "../components/TaskComponent";
+import { createNewPrompt } from "../lib/createPrompt/utils";
 import { getServerSideProps as gSSP } from "../lib/prompts/utils";
 import { getTranslations } from "../lib/translationUtils";
-import { defaultLocale, UserWithPromptInstance } from "../lib/types";
+import {
+  PromptInstanceWithPrompt,
+  TaskType,
+  UserWithPromptInstance,
+} from "../lib/types";
 
 export const getServerSideProps = gSSP;
 
@@ -18,63 +21,59 @@ type Props = {
 };
 
 const Task = ({ locale, user }: Props) => {
-  console.log(user);
-  const [completed, setCompleted] = useState(false);
+  const [prompt, setPrompt] = useState<PromptInstanceWithPrompt | null>(
+    user.promptInstances.length ? user.promptInstances[0] : null
+  );
 
-  const { promptInstances } = user;
-
-  useEffect(() => {
-    if (!promptInstances.length) {
-      router.push("/newTask");
+  const handleNewPrompt = async (type: TaskType) => {
+    try {
+      const active = type === TaskType.Active ? user.activityLevel : 0;
+      const res = await fetch("/api/promptInstances", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          active,
+        }),
+      });
+      const newPrompt = await res.json();
+      console.log(newPrompt);
+      setPrompt(newPrompt);
+    } catch (e) {
+      console.log(e);
     }
-  }, [promptInstances]);
-
-  const handleComplete = () => {
-    setCompleted(true);
   };
 
-  const handleSave = async () => {
-    console.log("save");
-  };
-
-  const prompt = promptInstances[0].prompt;
-  const translations = getTranslations(prompt.translations);
   return (
     <div className="flex flex-col items-center h-full justify-between">
       <div className="flex-1 w-full">
-        <BearWithBubble title="Here is your quest" />
+        <BearWithBubble title="Here is your quest!" />
       </div>
-      <div className="flex flex-col justify-center">
-        <Card>
-          {!completed ? (
-            <>
-              <CardTitle>{translations.title}</CardTitle>
-              <CardText>{translations.description}</CardText>
-              <div
-                onClick={handleComplete}
-                className="flex items-center w-full justify-center py-4"
-              >
-                <Button>Completed</Button>
-              </div>
-            </>
+      <div className="flex flex-col justify-center w-3/4">
+        <AnimatePresence>
+          {prompt ? (
+            <motion.div
+              key="Task"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <TaskComponent
+                promptInstanceWithPrompt={user.promptInstances[0]}
+              />
+            </motion.div>
           ) : (
-            <div className="flex flex-col align-center justify-center">
-              <CardTitle>{translations.title}</CardTitle>
-              <TextArea placeholder={translations.inputTitle} rows={4} />
-              <div className="w-3/4 m-auto py-4">
-                {translations.imageButton}
-              </div>
-              <div className="w-3/4 m-auto py-4">
-                <Button fullWidth onClick={handleSave}>
-                  {translations.submit}
-                </Button>
-              </div>
-            </div>
+            <motion.div
+              key="NewTask"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <NewTask createPrompt={handleNewPrompt} />
+            </motion.div>
           )}
-        </Card>
-      </div>
-      <div className="pt-4">
-        {completed ? <>fill later</> : <> I cant do this task today. Reroll</>}
+        </AnimatePresence>
       </div>
       <div className="flex-1 flex-col">
         <div className="pt-32" onClick={() => router.push("/")}>

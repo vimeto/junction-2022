@@ -7,8 +7,8 @@ type Props = {
 
 const BearWithBubble = ({ title, aux }: Props) => (
   <div className="w-full">
-    <div className="flex justify-end">
-      <img className="h-12 w-12" src="/bear.svg" alt="Bear" />
+    <div className="flex justify-end pr-10 pt-2">
+      <img className="h-16 w-16" src="/happy_bear.svg" alt="Bear" />
     </div>
     <div className="flex justify-center relative">
       <img className="w-1/2" src="/speech_bubble.svg" alt="" />
