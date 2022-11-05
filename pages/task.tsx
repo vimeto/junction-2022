@@ -24,6 +24,34 @@ const Task = ({ locale, user }: Props) => {
   const [prompt, setPrompt] = useState<PromptInstanceWithPrompt | null>(
     user.promptInstances.length ? user.promptInstances[0] : null
   );
+  const [userPromptLength, setUserPromptLength] = useState<number>(user.promptInstances.length);
+
+  const handleReroll = async (type: TaskType) => {
+    if (userPromptLength > 1) {
+      console.log("you have already rerolled");
+      return;
+    }
+
+
+    try {
+      const active = type === TaskType.Active ? user.activityLevel : 0;
+      const res = await fetch("/api/promptInstances", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          active,
+        }),
+      });
+      const newPrompt = await res.json();
+      const { promptInstance } = newPrompt;
+      setUserPromptLength(userPromptLength + 1);
+      setPrompt(promptInstance);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const handleNewPrompt = async (type: TaskType) => {
     try {
@@ -39,6 +67,7 @@ const Task = ({ locale, user }: Props) => {
       });
       const newPrompt = await res.json();
       const { promptInstance } = newPrompt;
+      setUserPromptLength(userPromptLength + 1);
       setPrompt(promptInstance);
     } catch (e) {
       console.log(e);
@@ -64,6 +93,10 @@ const Task = ({ locale, user }: Props) => {
               exit={{ opacity: 0 }}
             >
               <TaskComponent promptInstanceWithPrompt={prompt} />
+              {userPromptLength <= 1 && (
+                <div className="mt-4 text-center cursor-pointer" onClick={() => handleReroll(prompt.prompt.activityLevel > 0 ? TaskType.Active : TaskType.Mindful)}>
+                  Reroll
+                </div>)}
             </motion.div>
           ) : (
             <motion.div
@@ -80,8 +113,8 @@ const Task = ({ locale, user }: Props) => {
           )}
         </AnimatePresence>
       </div>
-      <div className="flex-1 flex-col">
-        <div className="pt-32" onClick={() => router.push("/")}>
+      <div className="flex-1 flex-col text-center">
+        <div className="pt-4" onClick={() => router.push("/")}>
           Remind me later
         </div>
       </div>

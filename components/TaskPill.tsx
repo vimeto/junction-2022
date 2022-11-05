@@ -12,7 +12,7 @@ const TaskPill = ({ user, locale }: Props) => {
   const { promptInstances } = user;
 
   const handleNewTask = () => {
-    router.push("/newTask");
+    router.push("/task");
   };
 
   const handleTask = () => {
