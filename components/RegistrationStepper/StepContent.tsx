@@ -9,8 +9,8 @@ export const IntroStep = () => {
   const t = useTranslations("registration");
 
   return (
-    <div>
-      <h2 className="font-semibold text-2xl">{t("steps.intro.header")}</h2>
+    <div className="w-3/4 mx-auto">
+      <h2 className="font-semibold text-xl">{t("steps.intro.header")}</h2>
       <div>{t("steps.intro.description")}</div>
     </div>
   );
@@ -30,34 +30,53 @@ export const ActivityStep = () => {
 
   return (
     <div>
-      <div className="flex items-center flex-col">
-        <h2 className="font-semibold text-2xl text-center">
+      <div className="flex items-center flex-col w-3/4 mx-auto">
+        <h2 className="font-semibold text-xl text-center">
           {t("steps.activity.header")}
         </h2>
         <div className="text-center">{t("steps.activity.description")}</div>
       </div>
       <div className="p-8">
-        <Card
-          onClick={() => onChange(ActivityLevel.High)}
-          // className={`${value === ActivityLevel.High ? "bg-slate-800" : ""}`}
-        >
-          <CardTitle>High</CardTitle>
-          <CardText>example</CardText>
-        </Card>
-        <Card
-          onClick={() => onChange(ActivityLevel.Medium)}
-          // className={`${value === ActivityLevel.Medium ? "bg-slate-800" : ""}`}
-        >
-          <CardTitle>Medium</CardTitle>
-          <CardText>example</CardText>
-        </Card>
-        <Card
-          onClick={() => onChange(ActivityLevel.Low)}
-          // className={`${value === ActivityLevel.Low ? "bg-slate-800" : ""}`}
-        >
-          <CardTitle>Low</CardTitle>
-          <CardText>example</CardText>
-        </Card>
+        <div className="pb-2">
+          <Card
+            noPadding
+            onClick={() => onChange(ActivityLevel.High)}
+            isActive={
+              value === ActivityLevel.High ? "primaryActive" : undefined
+            }
+          >
+            <div className="p-2 flex flex-col items-center justify-center">
+              <CardTitle>High</CardTitle>
+              <CardText>example</CardText>
+            </div>
+          </Card>
+        </div>
+        <div className="pb-2">
+          <Card
+            noPadding
+            onClick={() => onChange(ActivityLevel.Medium)}
+            isActive={
+              value === ActivityLevel.Medium ? "primaryActive" : undefined
+            }
+          >
+            <div className="p-2 flex flex-col items-center justify-center">
+              <CardTitle>Medium</CardTitle>
+              <CardText>example</CardText>
+            </div>
+          </Card>
+        </div>
+        <div className="pb-2">
+          <Card
+            noPadding
+            onClick={() => onChange(ActivityLevel.Low)}
+            isActive={value === ActivityLevel.Low ? "primaryActive" : undefined}
+          >
+            <div className="p-2 flex flex-col items-center justify-center">
+              <CardTitle>Low</CardTitle>
+              <CardText>example</CardText>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );
@@ -79,18 +98,28 @@ export const SharingStep = () => {
     <div>
       <h2>{t("steps.sharing.header")}</h2>
       <div>{t("steps.sharing.description")}</div>
-      <div>
-        <div
-          onClick={() => onChange(true)}
-          className={`${value ? "bg-slate-800" : ""}`}
-        >
-          Share
+      <div className="pt-6">
+        <div className="pb-2">
+          <Card
+            noPadding
+            onClick={() => onChange(true)}
+            isActive={value ? "primaryActive" : undefined}
+          >
+            <div className="p-2 flex flex-col items-center justify-center">
+              <CardTitle>Share</CardTitle>
+            </div>
+          </Card>
         </div>
-        <div
-          onClick={() => onChange(false)}
-          className={`${!value ? "bg-slate-800" : ""}`}
-        >
-          {"Don't share"}
+        <div className="pb-2">
+          <Card
+            noPadding
+            onClick={() => onChange(false)}
+            isActive={!value ? "primaryActive" : undefined}
+          >
+            <div className="p-2 flex flex-col items-center justify-center">
+              <CardTitle>{`Don't share`}</CardTitle>
+            </div>
+          </Card>
         </div>
       </div>
     </div>

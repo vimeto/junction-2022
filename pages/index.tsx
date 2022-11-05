@@ -20,7 +20,7 @@ type Props = {
 
 const Home = ({ user, locale, friendPrompts }: Props) => {
   return (
-    <div className="flex flex-col items-center h-full justify-between overflow-scroll">
+    <div className="flex flex-col items-center h-full justify-between ">
       <div className="flex-1 w-full p-4">
         <TaskPill user={user} locale={locale} />
       </div>

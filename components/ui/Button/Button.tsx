@@ -5,7 +5,7 @@ const buttonStyles = cva(
   {
     variants: {
       intent: {
-        primary: "bg-green-200 hover:bg-green-300",
+        primary: "bg-green-200 enabled:hover:bg-green-300",
         secondary: "bg-gray-200",
         danger: "bg-red-500",
       },
@@ -14,6 +14,9 @@ const buttonStyles = cva(
       },
       noPadding: {
         true: "py-0",
+      },
+      disableBtn: {
+        true: "cursor-not-allowed",
       },
       btnSize: {
         large: "px-6 py-4",
@@ -34,13 +37,22 @@ export function Button({
   fullWidth,
   type,
   btnSize,
+  disableBtn,
   noPadding,
+  disabled,
   ...props
 }: Props) {
   return (
     <button
-      className={buttonStyles({ intent, fullWidth, btnSize, noPadding })}
+      className={buttonStyles({
+        intent,
+        fullWidth,
+        btnSize,
+        noPadding,
+        disableBtn,
+      })}
       {...props}
+      disabled={disableBtn ?? undefined}
     />
   );
 }

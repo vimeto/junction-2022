@@ -45,7 +45,12 @@ export const FormStepper = ({ handleFinish }: { handleFinish: () => void }) => {
       <div className="justify-self-end pb-16 flex items-center flex-col">
         <div className="flex items-center justify-between w-full">
           <div className="p-4">
-            <Button onClick={() => setStep(step - 1)}>{t("back")}</Button>
+            <Button
+              onClick={() => setStep(Math.max(step - 1, 0))}
+              disableBtn={step === 0}
+            >
+              {t("back")}
+            </Button>
           </div>
           <div className="p-4">
             {step < 2 ? (
