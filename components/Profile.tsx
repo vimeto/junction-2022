@@ -19,7 +19,7 @@ function Profile() {
             Settings
           </div>
           <Link
-            href="/notifications"
+            href="/profile/notification_settings"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -33,7 +33,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/privacy_settings"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -47,7 +47,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/security_settings"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -61,7 +61,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/about_us"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -79,7 +79,7 @@ function Profile() {
         <div className="rounded-lg w-full shadow-2xl flex flex-col items-start space-between pt-6 h-full">
           <div className="text-xl font-bold text-black px-6 py-4">Account</div>
           <Link
-            href="/notifications"
+            href="/profile/personal_data"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -93,7 +93,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/password"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -107,7 +107,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/personal_facts"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
@@ -121,7 +121,7 @@ function Profile() {
             </div>
           </Link>
           <Link
-            href="/notifications"
+            href="/profile/social"
             className="w-full flex justify-between text-black py-2 px-6 space-between text-sm gap-3"
           >
             <div className="flex flex-column gap-2">
