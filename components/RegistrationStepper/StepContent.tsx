@@ -39,7 +39,7 @@ export const ActivityStep = () => {
       <div className="p-8">
         <div className="pb-2">
           <Card
-            noPadding
+            padding={0}
             onClick={() => onChange(ActivityLevel.High)}
             isActive={
               value === ActivityLevel.High ? "primaryActive" : undefined
@@ -53,7 +53,7 @@ export const ActivityStep = () => {
         </div>
         <div className="pb-2">
           <Card
-            noPadding
+            padding={0}
             onClick={() => onChange(ActivityLevel.Medium)}
             isActive={
               value === ActivityLevel.Medium ? "primaryActive" : undefined
@@ -67,7 +67,7 @@ export const ActivityStep = () => {
         </div>
         <div className="pb-2">
           <Card
-            noPadding
+            padding={0}
             onClick={() => onChange(ActivityLevel.Low)}
             isActive={value === ActivityLevel.Low ? "primaryActive" : undefined}
           >
@@ -101,7 +101,7 @@ export const SharingStep = () => {
       <div className="pt-6">
         <div className="pb-2">
           <Card
-            noPadding
+            padding={0}
             onClick={() => onChange(true)}
             isActive={value ? "primaryActive" : undefined}
           >
@@ -112,7 +112,7 @@ export const SharingStep = () => {
         </div>
         <div className="pb-2">
           <Card
-            noPadding
+            padding={0}
             onClick={() => onChange(false)}
             isActive={!value ? "primaryActive" : undefined}
           >

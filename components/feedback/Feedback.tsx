@@ -76,8 +76,8 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
         <div className="w-full">
           {renderingUtils({ promptInstanceWithPrompt })}
         </div>
-        <div className="py-2">
-          <div className="flex items-center m-auto py-4 justify-evenly">
+        <div className="pt-2">
+          <div className="flex items-center m-auto pt-2 justify-evenly">
             <div className="flex items-center">
               <div>Share with friends</div>
               <CheckBox {...methods.register("share")} />

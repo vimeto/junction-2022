@@ -1,3 +1,4 @@
+import { TextButton } from "@ui/Button/TextButton";
 import { AnimatePresence, motion } from "framer-motion";
 import router from "next/router";
 import { useState } from "react";
@@ -21,17 +22,20 @@ type Props = {
 };
 
 const Task = ({ locale, user }: Props) => {
+  const [completed, setCompleted] = useState(false);
+
   const [prompt, setPrompt] = useState<PromptInstanceWithPrompt | null>(
     user.promptInstances.length ? user.promptInstances[0] : null
   );
-  const [userPromptLength, setUserPromptLength] = useState<number>(user.promptInstances.length);
+  const [userPromptLength, setUserPromptLength] = useState<number>(
+    user.promptInstances.length
+  );
 
   const handleReroll = async (type: TaskType) => {
     if (userPromptLength > 1) {
       console.log("you have already rerolled");
       return;
     }
-
 
     try {
       const active = type === TaskType.Active ? user.activityLevel : 0;
@@ -51,7 +55,7 @@ const Task = ({ locale, user }: Props) => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const handleNewPrompt = async (type: TaskType) => {
     try {
@@ -76,11 +80,12 @@ const Task = ({ locale, user }: Props) => {
 
   return (
     <div className="flex flex-col items-center h-full justify-between">
-      <div className="flex-1 w-full">
+      <div className="flex-1 w-full pb-2">
         <BearWithBubble
           title={prompt ? "Here is your quest!" : "Choose a quest type"}
           aux={prompt ? undefined : "How are you doing today?"}
-          bearSrc="/winking_bear.svg"
+          bearSrc={completed ? "/happy_bear.svg" : "/winking_bear.svg"}
+          hideBubble={completed}
         />
       </div>
       <div className="flex flex-col justify-center w-3/4">
@@ -92,11 +97,27 @@ const Task = ({ locale, user }: Props) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <TaskComponent promptInstanceWithPrompt={prompt} />
+              <TaskComponent
+                promptInstanceWithPrompt={prompt}
+                completed={completed}
+                setCompleted={setCompleted}
+              />
               {userPromptLength <= 1 && (
-                <div className="mt-4 text-center cursor-pointer" onClick={() => handleReroll(prompt.prompt.activityLevel > 0 ? TaskType.Active : TaskType.Mindful)}>
-                  Reroll
-                </div>)}
+                <div className="mt-4 flex items-center justify-center">
+                  <div className="pr-2">I cannot do this one.</div>
+                  <TextButton
+                    onClick={() =>
+                      handleReroll(
+                        prompt.prompt.activityLevel > 0
+                          ? TaskType.Active
+                          : TaskType.Mindful
+                      )
+                    }
+                  >
+                    Reroll
+                  </TextButton>
+                </div>
+              )}
             </motion.div>
           ) : (
             <motion.div
@@ -114,8 +135,10 @@ const Task = ({ locale, user }: Props) => {
         </AnimatePresence>
       </div>
       <div className="flex-1 flex-col text-center">
-        <div className="pt-4" onClick={() => router.push("/")}>
-          Remind me later
+        <div className="pt-4">
+          <TextButton onClick={() => router.push("/")}>
+            Remind me later
+          </TextButton>
         </div>
       </div>
     </div>
