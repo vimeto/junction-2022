@@ -64,7 +64,7 @@ const Task = ({ locale, user }: Props) => {
               exit={{ opacity: 0 }}
             >
               <TaskComponent
-                promptInstanceWithPrompt={user.promptInstances[0]}
+                promptInstanceWithPrompt={prompt}
               />
             </motion.div>
           ) : (
