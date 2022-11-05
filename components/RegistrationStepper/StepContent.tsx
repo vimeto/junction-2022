@@ -90,7 +90,7 @@ export const SharingStep = () => {
           onClick={() => onChange(false)}
           className={`${!value ? "bg-slate-800" : ""}`}
         >
-          Don'tshare
+          {"Don't share"}
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ type Props = {
   title: string;
 };
 
+// TODO: update to <Image />
+
 const BearWithBubble = ({ title, aux }: Props) => (
   <div className="w-full">
     <div className="flex justify-end">

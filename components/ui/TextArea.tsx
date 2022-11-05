@@ -20,7 +20,7 @@ export interface Props
   extends React.HTMLProps<HTMLTextAreaElement>,
     VariantProps<typeof textAreaStyles> {}
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
+const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
   ({ fullWidth, intent, ...props }: Props, ref) => {
     return (
       <textarea
@@ -31,3 +31,9 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
     );
   }
 );
+
+TextArea.displayName = 'Textarea'
+
+export {
+  TextArea,
+}

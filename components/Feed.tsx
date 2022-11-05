@@ -32,8 +32,8 @@ const test = [
 const Feed = () => {
   return (
     <div>
-      {test.map((p) => (
-        <Card>
+      {test.map((p, index) => (
+        <Card key={index}>
           <CardTitle>{p.name}</CardTitle>
           <CardWithImage imageAlt={p.imageSrc}>{p.description}</CardWithImage>
         </Card>
