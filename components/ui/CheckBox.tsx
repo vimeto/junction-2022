@@ -8,17 +8,19 @@ export interface Props
   > {}
 
 export const CheckBox = React.forwardRef<HTMLInputElement, Props>(
-  ({ checked, onChange, ...props }: Props, ref) => {
+  ({ checked, onChange, name, readOnly, ...props }: Props, ref) => {
     return (
       <div className="form-control">
         <label className="label cursor-pointer">
           <span className="label-text" {...props} />
           <input
             type="checkbox"
+            ref={ref}
             checked={checked}
             onChange={onChange}
+            name={name}
+            readOnly={readOnly}
             className="m-4 checkbox checkbox-md"
-            ref={ref}
           />
         </label>
       </div>

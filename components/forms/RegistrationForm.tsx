@@ -5,6 +5,7 @@ import Router from "next/router";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/Button/Button";
 import { User, Message, Lock } from "react-iconly";
+import { TextButton } from "@ui/Button/TextButton";
 
 const RegistrationForm = () => {
   const t = useTranslations("actions");
@@ -105,6 +106,12 @@ const RegistrationForm = () => {
         <Button type="submit" btnSize={"large"} textColor={"white"}>
           {t("register")}
         </Button>
+      </div>
+      <div className="pt-6">
+        <span>{`Already have an accout? `}</span>
+        <TextButton type="onClick" onClick={() => Router.push("/login")}>
+          {t("login")}
+        </TextButton>
       </div>
     </form>
   );

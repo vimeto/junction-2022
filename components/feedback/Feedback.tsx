@@ -46,25 +46,33 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
     defaultValues: {
       inputValue: undefined, // string
       enumValue: undefined, // number
-      imageUrl: undefined, // string
+      images: undefined, // file[]
       share: false,
     },
   });
 
   const onSubmit = async (data: any) => {
     try {
+      // promptInstanceWithPrompt.i
+      const feedbackData = new FormData();
+      feedbackData.append("inputValue", data.inputValue);
+      feedbackData.append("enumValue", data.enumValue);
+      feedbackData.append("share", data.share);
+      if (data.images.length) {
+        feedbackData.append("file", data.images.length ? data.images[0] : undefined);
+      }
       console.log(data);
       setLoading(true);
-      const res = await fetch("/api/", {
+      const res = await fetch(`/api/promptInstances/feedBack/${promptInstanceWithPrompt.id}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data }),
+        body: feedbackData,
       });
       setLoading(false);
+
       if (res.status >= 400) throw new Error("Failed to save activity");
       router.push("/");
     } catch (e) {
-      console.error();
+      console.error(e);
     }
   };
 
@@ -76,8 +84,8 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
         <div className="w-full">
           {renderingUtils({ promptInstanceWithPrompt })}
         </div>
-        <div className="py-2">
-          <div className="flex items-center m-auto py-4 justify-evenly">
+        <div className="pt-2">
+          <div className="flex items-center m-auto pt-2 justify-evenly">
             <div className="flex items-center">
               <div>Share with friends</div>
               <CheckBox {...methods.register("share")} />

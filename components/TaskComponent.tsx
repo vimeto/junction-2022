@@ -12,17 +12,21 @@ import Feedback from "./feedback/Feedback";
 
 type Props = {
   promptInstanceWithPrompt: PromptInstanceWithPrompt;
+  completed: boolean;
+  setCompleted: (v: boolean) => void;
 };
 
-const TaskComponent = ({ promptInstanceWithPrompt }: Props) => {
-  const [completed, setCompleted] = useState<boolean>(false);
-
+const TaskComponent = ({
+  promptInstanceWithPrompt,
+  completed,
+  setCompleted,
+}: Props) => {
   const translations = getTranslations(
     promptInstanceWithPrompt.prompt.translations
   );
   return (
     <div>
-      <Card>
+      <Card padding={2}>
         <AnimatePresence>
           {completed ? (
             <motion.div
@@ -45,7 +49,7 @@ const TaskComponent = ({ promptInstanceWithPrompt }: Props) => {
             >
               <CardTitle>{translations.title}</CardTitle>
               <CardText>{translations.description}</CardText>
-              <div className="flex items-center w-full justify-center py-4">
+              <div className="flex items-center w-full justify-center py-2">
                 <Button onClick={() => setCompleted(true)}>Completed</Button>
               </div>
             </motion.div>

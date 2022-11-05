@@ -1,4 +1,5 @@
 import { Button } from "@ui/Button/Button";
+import { CheckBox } from "@ui/CheckBox";
 import router from "next/router";
 import { getTranslations } from "../lib/translationUtils";
 import { UserWithPromptInstance } from "../lib/types";
@@ -12,7 +13,7 @@ const TaskPill = ({ user, locale }: Props) => {
   const { promptInstances } = user;
 
   const handleNewTask = () => {
-    router.push("/newTask");
+    router.push("/task");
   };
 
   const handleTask = () => {
@@ -33,8 +34,8 @@ const TaskPill = ({ user, locale }: Props) => {
   return (
     <Button intent="primary" onClick={handleTask} fullWidth noPadding>
       <div className="flex items-center justify-center">
-        <div className="pr-2">{translations.title}</div>
-        <div>checkbox</div>
+        <div className="px-2 text-left">{translations.title}</div>
+        <CheckBox checked={completed} readOnly />
         <div className="pt-2 pl-2">
           <img
             className="w-14 h-14"

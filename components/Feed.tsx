@@ -1,6 +1,10 @@
+import { PromptInstance } from "@prisma/client";
 import { Card } from "@ui/Card/Card";
+import { CardText } from "@ui/Card/CardText";
 import { CardTitle } from "@ui/Card/CardTitle";
 import { CardWithImage } from "@ui/Card/CardWithImage";
+import { getTranslations } from "../lib/translationUtils";
+import { PromptInstanceWithUsernameAndTranslations } from "../lib/types";
 
 const test = [
   {
@@ -29,17 +33,35 @@ const test = [
   },
 ];
 
-const Feed = () => {
+type Props = {
+  friendPromps: PromptInstanceWithUsernameAndTranslations[];
+};
+
+const Feed = ({ friendPromps }: Props) => {
   return (
-    <div>
-      {test.map((p, index) => (
-        <div className="pb-4" key={index}>
-          <Card>
-            <CardTitle>{p.name}</CardTitle>
-            <CardWithImage imageAlt={p.imageSrc}>{p.description}</CardWithImage>
-          </Card>
-      </div>
-      ))}
+    <div className="w-full">
+      {friendPromps.map((p) => {
+        const translations = getTranslations(p.prompt.translations);
+
+        return (
+          <div className="pb-4" key={p.id}>
+            <Card>
+              <CardTitle>{p.user.name}</CardTitle>
+              {p.imageSecureURL ? (
+                <CardWithImage imageUrl={p.imageSecureURL}>
+                  <div className="font-bold mb-1">{translations.title}</div>
+                  {p.inputValue}
+                </CardWithImage>
+              ) : (
+                <CardText>
+                  <div className="font-bold mb-1">{translations.title}</div>
+                  {p.inputValue}
+                </CardText>
+              )}
+            </Card>
+          </div>
+        );
+      })}
     </div>
   );
 };

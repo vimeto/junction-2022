@@ -4,27 +4,23 @@ import { NavLink } from "./ui/Navigation/NavLink";
 import { NavBase } from "./ui/Navigation/NavBase";
 import { Home, Calendar, User } from 'react-iconly';
 
-
-
-
-
-const Header: React.FC = () => {
+const Navigation: React.FC = () => {
   const router = useRouter()
   const isActive: (pathname: string) => (boolean | null | undefined) = (pathname: string) => router.pathname === pathname;
   const { data: session, status } = useSession()
 
-  if (!session) {
+  if (!session?.user) {
     return <></>;
   }
 
   return(
     <NavBase>
+      <NavLink href='/calendar' isActive={isActive('/calendar')}><Calendar/></NavLink>
       <NavLink href='/' isActive={isActive('/')}><Home/></NavLink>
-      <NavLink href='/' isActive={isActive('/navigation')}><Calendar/></NavLink>
-      <NavLink href='/' isActive={isActive('/')}><User/></NavLink>
+      <NavLink href='/profile' isActive={isActive('/profile')}><User/></NavLink>
     </NavBase>
   )
 }
 
 
-export default Header
+export default Navigation
