@@ -49,10 +49,8 @@ const LoginForm = () => {
           <FcGoogle />
         </button>
         <div className="pt-6">
-          <span>Don't have an account yet?</span>
-          <TextButton type="onClick" paddingLeft>
-            {t("register")}
-          </TextButton>
+          <span>{`Don't have an account yet?`}</span>
+          <TextButton type="onClick">{t("register")}</TextButton>
         </div>
       </div>
     </div>

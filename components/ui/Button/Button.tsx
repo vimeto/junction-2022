@@ -49,16 +49,11 @@ export function Button({
   return (
     <button
       className={buttonStyles({
-       
         intent,
-       
         fullWidth,
-       
         btnSize,
-       
         noPadding,
         textColor,
-     ,
         disableBtn,
       })}
       {...props}
