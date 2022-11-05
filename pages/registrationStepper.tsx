@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormStepper } from "../components/RegistrationStepper/Stepper";
 import { ActivityLevel } from "../lib/types";
+import { getServerSideProps as gSSP } from "../lib/registrationStepper/utils";
+
+export const getServerSideProps = gSSP;
 
 export default function RegistrationStepper() {
   const [loading, setLoading] = useState(false);
