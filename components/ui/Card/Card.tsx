@@ -1,6 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority";
 
-const cardStyles = cva("card w-96 bg-base-100 shadow-xl p-6 rounded-xl", {
+const cardStyles = cva("card w-full bg-base-100 shadow-xl p-6 rounded-xl", {
   variants: {
     bgGray: {
       true: "bg-blue-300 hover:bg-green-300",

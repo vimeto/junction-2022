@@ -15,12 +15,12 @@ type Props = {
 
 const Home = ({ user, locale }: Props) => {
   return (
-    <div className="flex flex-col items-center h-full justify-between">
+    <div className="flex flex-col items-center h-full justify-between overflow-scroll">
       <div className="flex-1 w-full p-4">
         <TaskPill user={user} locale={locale} />
       </div>
-      <div>Companions</div>
-      <div className="flex items-center w-3/4">
+      <div className="font-bold text-2xl mb-4">Companions</div>
+      <div className="flex items-center w-11/12">
         <Feed />
       </div>
     </div>
