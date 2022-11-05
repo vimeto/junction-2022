@@ -8,6 +8,9 @@ const cardStyles = cva("card shadow-aapon-varjo p-6 rounded-xl", {
       secondaryActive: "bg-teal-500",
       secondaryNonActive: "bg-teal-200",
     },
+    noPadding: {
+      true: "p-0",
+    },
   },
 });
 
@@ -18,6 +21,6 @@ export interface Props
     >,
     VariantProps<typeof cardStyles> {}
 
-export function Card({ isActive, ...props }: Props) {
-  return <div className={cardStyles({ isActive })} {...props} />;
+export function Card({ isActive, noPadding, ...props }: Props) {
+  return <div className={cardStyles({ isActive, noPadding })} {...props} />;
 }
