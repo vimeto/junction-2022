@@ -1,6 +1,9 @@
 import { ActivityLevel } from "../../lib/types";
 import { useTranslations } from "next-intl";
 import { useFormContext, useController } from "react-hook-form";
+import { Card } from "@ui/Card/Card";
+import { CardTitle } from "@ui/Card/CardTitle";
+import { CardText } from "@ui/Card/CardText";
 
 export const IntroStep = () => {
   const t = useTranslations("registration");
@@ -27,29 +30,35 @@ export const ActivityStep = () => {
 
   return (
     <div>
-      <div>
-        <h2 className="font-semibold text-2xl">{t("steps.activity.header")}</h2>
-        <div>{t("steps.activity.description")}</div>
+      <div className="flex items-center flex-col">
+        <h2 className="font-semibold text-2xl text-center">
+          {t("steps.activity.header")}
+        </h2>
+        <div className="text-center">{t("steps.activity.description")}</div>
       </div>
-      <div>
-        <div
+      <div className="p-8">
+        <Card
+          bgGray
           onClick={() => onChange(ActivityLevel.High)}
           className={`${value === ActivityLevel.High ? "bg-slate-800" : ""}`}
         >
-          High
-        </div>
-        <div
+          <CardTitle>High</CardTitle>
+          <CardText>example</CardText>
+        </Card>
+        <Card
           onClick={() => onChange(ActivityLevel.Medium)}
           className={`${value === ActivityLevel.Medium ? "bg-slate-800" : ""}`}
         >
-          Medium
-        </div>
-        <div
+          <CardTitle>Medium</CardTitle>
+          <CardText>example</CardText>
+        </Card>
+        <Card
           onClick={() => onChange(ActivityLevel.Low)}
           className={`${value === ActivityLevel.Low ? "bg-slate-800" : ""}`}
         >
-          Low
-        </div>
+          <CardTitle>Low</CardTitle>
+          <CardText>example</CardText>
+        </Card>
       </div>
     </div>
   );
