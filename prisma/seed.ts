@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from '@prisma/client';
+import { createPrompt } from "../lib/app/createPrompt";
 const prisma = new PrismaClient();
 
 const seedUsers = async () => {
@@ -15,56 +16,92 @@ const seedUsers = async () => {
 }
 
 const seedPrompts = async () => {
-  const a = await prisma.prompt.create({
-    data: {
-      activityLevel: 20,
-      rarityLevel: 10,
-      feedbackType: "freeTextWithPic",
-      translations: {
-        en: {
-          title: "Go on a hike",
-          description: "You should go on a hike now",
-          inputTitle: "How did you like the hike",
-          imageButton: "Upload pic",
-          submit: "Save!",
-        },
-        fi: {
-          title: "Mene vaeltamaan",
-          description: "Käy vaeltamassa",
-          inputTitle: "Miltä tuntui käydä vaeltamassa",
-          imageButton: "Käytä kuva",
-          submit: "Tallenna!",
-        },
-      }
+  const dataA = {
+    activityLevel: 20,
+    rarityLevel: 10,
+    feedbackType: "freeTextWithPic" as "freeText" | "freeTextWithPic" | "multipleChoise" | "markCompleted",
+    translations: {
+      en: {
+        title: "Go walking outside with friend",
+        description: "Go walking now pls",
+        inputTitle: "How did you like the walk",
+        imageButton: "Upload pic",
+        submit: "Save!",
+        enumValues: {} as Record<number, string>
+      },
+      fi: {
+        title: "Mene kävelemään broidin kanssa",
+        description: "Käyppä vaeltamassa",
+        inputTitle: "Miten pidit kävelystä",
+        imageButton: "Lataa kuva",
+        submit: "Tallenna!",
+        enumValues: {} as Record<number, string>
+      },
     }
-  });
+  }
 
-  const b = await prisma.prompt.create({
-    data: {
-      activityLevel: 10,
-      rarityLevel: 10,
-      feedbackType: "freeText",
-      translations: {
-        en: {
-          title: "Go to sleep",
-          description: "You have been working hard, now please go to sleep",
-          inputTitle: "What did you feel about sleeping",
-          submit: "Save!",
-        },
-        fi: {
-          title: "Mene nukkumaan",
-          description: "Olet ollut pitkään ylhäällä, nyt mene nukkumaan",
-          inputTitle: "Miltä tuntui nukkua",
-          submit: "Tallenna!",
-        },
-      }
+  const dataB = {
+    activityLevel: 10,
+    rarityLevel: 10,
+    feedbackType: "freeText",
+    translations: {
+      en: {
+        title: "Take a nap",
+        description: "You are tired, sleep pls",
+        inputTitle: "How was it",
+        submit: "Save",
+      },
+      fi: {
+        title: "Mene päikkäreille",
+        description: "Nyt päikkäreille broidi",
+        inputTitle: "Miltä tuntui päikkärit",
+        submit: "Tallenna!",
+      },
     }
-  });
+  }
+  // const b = await prisma.prompt.create({
+  //   data: {
+  //     activityLevel: 10,
+  //     rarityLevel: 10,
+  //     feedbackType: "freeText",
+  //     translations: {
+  //       en: {
+  //         title: "Go to sleep",
+  //         description: "You have been working hard, now please go to sleep",
+  //         inputTitle: "What did you feel about sleeping",
+  //         submit: "Save!",
+  //       },
+  //       fi: {
+  //         title: "Mene nukkumaan",
+  //         description: "Olet ollut pitkään ylhäällä, nyt mene nukkumaan",
+  //         inputTitle: "Miltä tuntui nukkua",
+  //         submit: "Tallenna!",
+  //       },
+  //     }
+  //   }
+  // });
 
-  return [a.id, b.id]
+  // const c = await prisma.promptConfiguration.create({
+  //   data: {
+  //     name: "main-prompt-configuration",
+  //     configuration: {
+  //       [a.activityLevel]: {
+  //         [a.rarityLevel]: [a.id]
+  //       },
+  //       [b.activityLevel]: {
+  //         [b.rarityLevel]: [b.id]
+  //       },
+  //     }
+  //   }
+  // })
+
+  const aId = await createPrompt(dataA);
+  const bId = await createPrompt(dataB);
+
+  return [aId, bId]
 }
 
-const seedPromptInstances = async (listOfIds: string[]) => {
+const seedPromptInstances = async (listOfIds: (string | undefined)[]) => {
   await prisma.promptInstance.create({
     data: {
       inputValue: "this was nice",
@@ -87,6 +124,10 @@ const seed = async () => {
   // await seedUsers();
   const listOfPromptIds = await seedPrompts();
   await seedPromptInstances(listOfPromptIds);
+
+  const pc = await prisma.promptConfiguration.findFirst({})
+
+  // Object.values(pc).forEach(a => console.log(a))
 }
 
 seed();
