@@ -18,7 +18,7 @@ const FreeTextWithPic = ({ title, enumValues }: Props) => {
     <>
       <CardTitle>{title}</CardTitle>
       {enumValues.map((option) => (
-        <div>
+        <div key={option.value}>
           <div>{option.label}</div>
           <div>
             <input
