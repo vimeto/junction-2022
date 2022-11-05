@@ -40,11 +40,11 @@ type Props = {
 const Feed = ({ friendPromps }: Props) => {
   return (
     <div className="w-full">
-      {friendPromps.map((p, index) => {
+      {friendPromps.map((p) => {
         const translations = getTranslations(p.prompt.translations);
 
         return (
-          <div className="pb-4" key={index}>
+          <div className="pb-4" key={p.id}>
             <Card>
               <CardTitle>{p.user.name}</CardTitle>
               {p.imageUrl ? (
