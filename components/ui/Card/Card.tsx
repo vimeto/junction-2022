@@ -1,6 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority";
 
-const cardStyles = cva("card bg-base-100 shadow-xl p-6 rounded-xl", {
+const cardStyles = cva("card shadow-aapon-varjo p-6 rounded-xl", {
   variants: {
     isActive: {
       primaryActive: "bg-sky-500",
