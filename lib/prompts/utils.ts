@@ -20,11 +20,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const today = new Date();
 
   // returns user with list of today's promptinstances
-  const user = await prisma.user.findUnique({
+  const userWithPrompts = await prisma.user.findUnique({
     where: {
       email: session.user.email || ""
     },
     include: {
+      following: true,
       promptInstances: {
         where: {
           date: {
@@ -33,29 +34,44 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           }
         },
         include: {
-          prompt: true
+          prompt: true,
         },
         orderBy: {
           date: 'desc'
         }
       }
     }
-  })
+  });
 
-  if (!user) {
-    // this shouldn't exist
-  } else if (user.promptInstances.length === 0) {
-    // here we create a new prompt instance with the randomization function
-  } else if (user.promptInstances.at(-1)?.completed) {
-    // today's prompt has been completed
-  } else {
-    // today's prompt has not been completed
+  const friendPrompts = await prisma.promptInstance.findMany({
+    where: {
+      userId: {
+        in: userWithPrompts?.following.map((u) => u.id)
+      },
+      shared: true,
+    },
+    orderBy: {
+      date: 'desc'
+    }
+  });
+
+
+
+  if (!userWithPrompts) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login ",
+      },
+      props:{},
+    };
   }
 
   return {
     props: {
       locale: ctx.locale,
-      user: JSON.parse(JSON.stringify(user))
+      user: JSON.parse(JSON.stringify(userWithPrompts)),
+      friendPrompts: JSON.parse(JSON.stringify(friendPrompts)),
     }
   }
 }

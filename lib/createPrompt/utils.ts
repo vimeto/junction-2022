@@ -1,6 +1,4 @@
 import { User } from "@prisma/client";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "../prisma";
 import { getRarityNumber } from "../prompts/createNew";
 
@@ -71,6 +69,9 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
         }
       },
       shared: false
+    },
+    include: {
+      prompt: true
     }
   })
 
