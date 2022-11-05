@@ -4,7 +4,7 @@ import prisma from "../prisma";
 type PromptType = {
   activityLevel: number;
   rarityLevel: number;
-  feedbackType: "freeTextWithPic" | "freeText" | "multipleChoise" | "markCompleted";
+  feedbackType: "freeTextWithPic" | "freeText" | "multipleChoice" | "markCompleted";
   translations: {
       en: {
           title: string;
@@ -33,33 +33,6 @@ const createPrompt = async (data: PromptType) => {
   const prompt = await prisma.prompt.create({
     data
   });
-
-  const promptConfiguration = await prisma.promptConfiguration.findFirst({
-    where: {
-      name: "main-prompt-configuration"
-    }
-  });
-
-  if (!promptConfiguration) { return; }
-
-  const d = promptConfiguration.configuration as Record<number, Record<number, string[]>>
-
-  const newData = {
-    ...d,
-    [prompt.activityLevel]: {
-      ...(d[prompt.activityLevel]),
-      [prompt.rarityLevel]: [...new Set(d[prompt.activityLevel][prompt.rarityLevel].concat([prompt.id]))]
-    }
-  }
-
-  await prisma.promptConfiguration.update({
-    where: {
-      id: promptConfiguration.id
-    },
-    data: {
-      configuration: newData
-    }
-  })
 
   return prompt.id
 

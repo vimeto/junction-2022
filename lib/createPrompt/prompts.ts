@@ -1,7 +1,7 @@
 type PromptType = {
   activityLevel: number;
   rarityLevel: number;
-  feedbackType: "freeTextWithPic" | "freeText" | "multipleChoise" | "markCompleted";
+  feedbackType: "freeTextWithPic" | "freeText" | "multipleChoice" | "markCompleted";
   translations: {
       en: {
           title: string;
