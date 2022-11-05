@@ -1,4 +1,4 @@
-import { Button } from "@ui/Button";
+import { Button } from "@ui/Button/Button";
 import router from "next/router";
 import { getTranslations } from "../lib/translationUtils";
 import { UserWithPromptInstance } from "../lib/types";

@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { Button } from "@ui/Button";
+import { Button } from "@ui/Button/Button";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import router from "next/router";
