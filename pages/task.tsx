@@ -63,9 +63,7 @@ const Task = ({ locale, user }: Props) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <TaskComponent
-                promptInstanceWithPrompt={prompt}
-              />
+              <TaskComponent promptInstanceWithPrompt={prompt} />
             </motion.div>
           ) : (
             <motion.div
@@ -74,7 +72,10 @@ const Task = ({ locale, user }: Props) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <NewTask createPrompt={handleNewPrompt} />
+              <NewTask
+                createPrompt={handleNewPrompt}
+                activityLevel={user.activityLevel}
+              />
             </motion.div>
           )}
         </AnimatePresence>
