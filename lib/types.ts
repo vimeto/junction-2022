@@ -1,3 +1,5 @@
+export const defaultLocale = "en";
+
 export enum ActivityLevel {
   "High" = 20,
   "Medium" = 10,
@@ -9,4 +11,9 @@ export enum RarityLevel {
   "Epic" = 20,
   "Rare" = 10,
   "Common" = 0,
+}
+
+export enum TaskType {
+  "Active",
+  "Mindful",
 }

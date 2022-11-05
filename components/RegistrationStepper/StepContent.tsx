@@ -38,23 +38,22 @@ export const ActivityStep = () => {
       </div>
       <div className="p-8">
         <Card
-          bgGray
           onClick={() => onChange(ActivityLevel.High)}
-          className={`${value === ActivityLevel.High ? "bg-slate-800" : ""}`}
+          // className={`${value === ActivityLevel.High ? "bg-slate-800" : ""}`}
         >
           <CardTitle>High</CardTitle>
           <CardText>example</CardText>
         </Card>
         <Card
           onClick={() => onChange(ActivityLevel.Medium)}
-          className={`${value === ActivityLevel.Medium ? "bg-slate-800" : ""}`}
+          // className={`${value === ActivityLevel.Medium ? "bg-slate-800" : ""}`}
         >
           <CardTitle>Medium</CardTitle>
           <CardText>example</CardText>
         </Card>
         <Card
           onClick={() => onChange(ActivityLevel.Low)}
-          className={`${value === ActivityLevel.Low ? "bg-slate-800" : ""}`}
+          // className={`${value === ActivityLevel.Low ? "bg-slate-800" : ""}`}
         >
           <CardTitle>Low</CardTitle>
           <CardText>example</CardText>
