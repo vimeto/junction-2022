@@ -53,10 +53,8 @@ const RegistrationForm = () => {
       onSubmit={handleSubmit(handleRegister)}
       className="flex flex-col items-center pt-28 h-full"
     >
-      <div className="text-black pt-30"> Hello there,</div>
-      <div className="text-black text-xl pb-12 font-bold">
-        Create an Account
-      </div>
+      <div className="text-black pt-30"> {t("hello")}</div>
+      <div className="text-black text-xl pb-12 font-bold">{t("create")}</div>
       <div className="relative text-gray-600 focus-within:text-sky-500 flex items-center py-2">
         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
           <User />
@@ -64,7 +62,7 @@ const RegistrationForm = () => {
         <TextInput
           className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
           defaultValue=""
-          placeholder="Name"
+          placeholder={t("name")}
           {...register("name", { required: true })}
         />
       </div>
@@ -75,7 +73,7 @@ const RegistrationForm = () => {
         <TextInput
           className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
           defaultValue=""
-          placeholder="Username"
+          placeholder={t("username")}
           {...register("username", { required: true })}
         />
       </div>
@@ -86,7 +84,7 @@ const RegistrationForm = () => {
         <TextInput
           className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
           defaultValue=""
-          placeholder="Email"
+          placeholder={t("email")}
           {...register("email", { required: true })}
         />
       </div>
@@ -97,7 +95,7 @@ const RegistrationForm = () => {
         <TextInput
           className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
           defaultValue=""
-          placeholder="Password"
+          placeholder={t("password")}
           type="password"
           {...register("password", { required: true, minLength: 5 })}
         />
@@ -108,9 +106,15 @@ const RegistrationForm = () => {
         </Button>
       </div>
       <div className="pt-6">
-          <span>{`Already have an accout? `}</span>
-          <TextButton type="onClick" onClick={() => Router.push("/login")}>{t("login")}</TextButton>
-        </div>
+        <span>{t("account?")}</span>
+        <TextButton
+          type="onClick"
+          paddingLeft
+          onClick={() => Router.push("/login")}
+        >
+          {t("login")}
+        </TextButton>
+      </div>
     </form>
   );
 };
