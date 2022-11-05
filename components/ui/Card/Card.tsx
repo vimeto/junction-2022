@@ -18,9 +18,6 @@ const cardStyles = cva("card shadow-aapon-varjo rounded-xl", {
   defaultVariants: {
     padding: 6,
   },
-  defaultVariants: {
-    padding: 6,
-  },
 });
 
 export interface Props

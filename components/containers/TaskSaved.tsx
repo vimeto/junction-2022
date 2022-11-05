@@ -25,10 +25,10 @@ const TaskSaved = ({ locale, user }: Props) => {
           </div>
           <CardText>{promptInstance.inputValue}</CardText>
           <div>
-            {promptInstance.imageUrl && (
+            {promptInstance.imageSecureURL && (
               <img
                 className="w-3/4 h-auto"
-                src={promptInstance.imageUrl}
+                src={promptInstance.imageSecureURL}
                 alt=""
               />
             )}
