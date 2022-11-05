@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 import { createPrompt } from "../lib/app/createPrompt";
 const prisma = new PrismaClient();
 
@@ -9,17 +9,21 @@ const seedUsers = async () => {
   const data = {
     name: "Root User",
     email: "root.user@gmail.com",
-    passwordDigest: await bcrypt.hash("password", salt)
-  }
+    passwordDigest: await bcrypt.hash("password", salt),
+  };
 
-  await prisma.user.create({ data })
-}
+  await prisma.user.create({ data });
+};
 
 const seedPrompts = async () => {
   const dataA = {
     activityLevel: 20,
     rarityLevel: 10,
-    feedbackType: "freeTextWithPic" as "freeText" | "freeTextWithPic" | "multipleChoise" | "markCompleted",
+    feedbackType: "freeTextWithPic" as
+      | "freeText"
+      | "freeTextWithPic"
+      | "multipleChoise"
+      | "markCompleted",
     translations: {
       en: {
         title: "Go walking outside with friend",
@@ -27,7 +31,7 @@ const seedPrompts = async () => {
         inputTitle: "How did you like the walk",
         imageButton: "Upload pic",
         submit: "Save!",
-        enumValues: {} as Record<number, string>
+        enumValues: {} as Record<number, string>,
       },
       fi: {
         title: "Mene kävelemään broidin kanssa",
@@ -35,15 +39,19 @@ const seedPrompts = async () => {
         inputTitle: "Miten pidit kävelystä",
         imageButton: "Lataa kuva",
         submit: "Tallenna!",
-        enumValues: {} as Record<number, string>
+        enumValues: {} as Record<number, string>,
       },
-    }
-  }
+    },
+  };
 
   const dataB = {
     activityLevel: 10,
     rarityLevel: 10,
-    feedbackType: "freeText"  as "freeText" | "freeTextWithPic" | "multipleChoise" | "markCompleted",
+    feedbackType: "freeText" as
+      | "freeText"
+      | "freeTextWithPic"
+      | "multipleChoise"
+      | "markCompleted",
     translations: {
       en: {
         title: "Take a nap",
@@ -61,8 +69,8 @@ const seedPrompts = async () => {
         imageButton: "",
         enumValues: {},
       },
-    }
-  }
+    },
+  };
   // const b = await prisma.prompt.create({
   //   data: {
   //     activityLevel: 10,
@@ -102,8 +110,10 @@ const seedPrompts = async () => {
   const aId = await createPrompt(dataA);
   const bId = await createPrompt(dataB);
 
-  return [aId, bId]
-}
+  console.log([aId, bId]);
+
+  return [aId, bId];
+};
 
 const seedPromptInstances = async (listOfIds: (string | undefined)[]) => {
   await prisma.promptInstance.create({
@@ -112,26 +122,26 @@ const seedPromptInstances = async (listOfIds: (string | undefined)[]) => {
       shared: true,
       prompt: {
         connect: {
-          id: listOfIds[0]
-        }
+          id: listOfIds[0],
+        },
       },
       user: {
         connect: {
-          email: "root.user@gmail.com"
-        }
-      }
-    }
-  })
-}
+          email: "root.user@gmail.com",
+        },
+      },
+    },
+  });
+};
 
 const seed = async () => {
   // await seedUsers();
   const listOfPromptIds = await seedPrompts();
   await seedPromptInstances(listOfPromptIds);
 
-  const pc = await prisma.promptConfiguration.findFirst({})
+  const pc = await prisma.promptConfiguration.findFirst({});
 
   // Object.values(pc).forEach(a => console.log(a))
-}
+};
 
 seed();

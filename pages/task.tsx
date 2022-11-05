@@ -1,20 +1,20 @@
-import { Prompt, PromptInstance, User } from "@prisma/client";
+import { Button } from "@ui/Button";
 import { Card } from "@ui/Card/Card";
-import { CardTitle } from "@ui/Card/CardTitle";
 import { CardText } from "@ui/Card/CardText";
+import { CardTitle } from "@ui/Card/CardTitle";
+import { TextArea } from "@ui/TextArea";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import BearWithBubble from "../components/BearWithBubble";
 import { getServerSideProps as gSSP } from "../lib/prompts/utils";
-import { defaultLocale, TaskType } from "../lib/types";
-import router from "next/router";
-import { Button } from "@ui/Button";
-import { TextArea } from "@ui/TextArea";
+import { getTranslations } from "../lib/translationUtils";
+import { defaultLocale, UserWithPromptInstance } from "../lib/types";
 
 export const getServerSideProps = gSSP;
 
 type Props = {
   locale?: string;
-  user: User & { promptInstances: PromptInstance & { prompt: Prompt }[] };
+  user: UserWithPromptInstance;
 };
 
 const Task = ({ locale, user }: Props) => {
@@ -38,15 +38,7 @@ const Task = ({ locale, user }: Props) => {
   };
 
   const prompt = promptInstances[0].prompt;
-  const translations = (prompt.translations as Record<string, any>)[
-    locale ?? defaultLocale
-  ] as {
-    description: string;
-    imageButton: string;
-    inputTitle: string;
-    submit: string;
-    title: string;
-  };
+  const translations = getTranslations(prompt.translations);
   return (
     <div className="flex flex-col items-center h-full justify-between">
       <div className="flex-1 w-full">

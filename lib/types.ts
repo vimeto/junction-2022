@@ -1,3 +1,5 @@
+import { Prompt, PromptInstance, User } from "@prisma/client";
+
 export const defaultLocale = "en";
 
 export enum ActivityLevel {
@@ -17,3 +19,9 @@ export enum TaskType {
   "Active",
   "Mindful",
 }
+
+type PromptInstanceWithPrompt = PromptInstance & { prompt: Prompt };
+
+export type UserWithPromptInstance = User & {
+  promptInstances: PromptInstanceWithPrompt[];
+};

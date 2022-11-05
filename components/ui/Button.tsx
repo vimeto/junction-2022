@@ -12,6 +12,9 @@ const buttonStyles = cva(
       fullWidth: {
         true: "w-full",
       },
+      noPadding: {
+        true: "py-0",
+      },
       btnSize: {
         large: "px-6 py-4",
       },
@@ -26,10 +29,17 @@ export interface Props
   extends React.HTMLProps<HTMLButtonElement>,
     VariantProps<typeof buttonStyles> {}
 
-export function Button({ intent, fullWidth, type, btnSize, ...props }: Props) {
+export function Button({
+  intent,
+  fullWidth,
+  type,
+  btnSize,
+  noPadding,
+  ...props
+}: Props) {
   return (
     <button
-      className={buttonStyles({ intent, fullWidth, btnSize })}
+      className={buttonStyles({ intent, fullWidth, btnSize, noPadding })}
       {...props}
     />
   );

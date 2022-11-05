@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "../prisma";
-import startOfDay from 'date-fns/startOfDay'
-import endOfDay from 'date-fns/endOfDay'
+import startOfDay from "date-fns/startOfDay";
+import endOfDay from "date-fns/endOfDay";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         permanent: false,
         destination: "/login ",
       },
-      props:{},
+      props: {},
     };
   }
 
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // returns user with list of today's promptinstances
   const userWithPrompts = await prisma.user.findUnique({
     where: {
-      email: session.user.email || ""
+      email: session.user.email || "",
     },
     include: {
       following: true,
@@ -30,32 +30,30 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         where: {
           date: {
             gte: startOfDay(today),
-            lt:  endOfDay(today)
-          }
+            lt: endOfDay(today),
+          },
         },
         include: {
           prompt: true,
         },
         orderBy: {
-          date: 'desc'
-        }
-      }
-    }
+          date: "desc",
+        },
+      },
+    },
   });
 
   const friendPrompts = await prisma.promptInstance.findMany({
     where: {
       userId: {
-        in: userWithPrompts?.following.map((u) => u.id)
+        in: userWithPrompts?.following.map((u) => u.id),
       },
       shared: true,
     },
     orderBy: {
-      date: 'desc'
-    }
+      date: "desc",
+    },
   });
-
-
 
   if (!userWithPrompts) {
     return {
@@ -63,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         permanent: false,
         destination: "/login ",
       },
-      props:{},
+      props: {},
     };
   }
 
@@ -72,6 +70,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       locale: ctx.locale,
       user: JSON.parse(JSON.stringify(userWithPrompts)),
       friendPrompts: JSON.parse(JSON.stringify(friendPrompts)),
-    }
-  }
-}
+    },
+  };
+};
