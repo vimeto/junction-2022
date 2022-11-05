@@ -1,4 +1,4 @@
-import { Button } from "@ui/Button";
+import { Button } from "@ui/Button/Button";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";

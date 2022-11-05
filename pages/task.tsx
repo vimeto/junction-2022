@@ -1,4 +1,4 @@
-import { Button } from "@ui/Button";
+import { Button } from "@ui/Button/Button";
 import { Card } from "@ui/Card/Card";
 import { CardText } from "@ui/Card/CardText";
 import { CardTitle } from "@ui/Card/CardTitle";

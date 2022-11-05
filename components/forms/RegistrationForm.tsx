@@ -1,9 +1,9 @@
-import { Button } from "@ui/Button";
 import { TextInput } from "@ui/TextInput";
 import { useTranslations } from "next-intl";
 import { signIn } from "next-auth/react";
 import Router from "next/router";
 import { useForm } from "react-hook-form";
+import { Button } from "@ui/Button/Button";
 
 const RegistrationForm = () => {
   const t = useTranslations("actions");
