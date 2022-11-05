@@ -87,7 +87,7 @@ const LoginForm = () => {
       </div>
       <div className="flex flex-col items-center pt-4">
         <div className="pb-4 text-black font-thin text-sm">{t("or")}</div>
-        <button className="text-xl btn btn-square border-spacing-0 bg-white border-gray-300 hover:bg-slate-300">
+        <button className="text-xl btn btn-square border-spacing-0 bg-white border-gray-300 hover:bg-slate-300" onClick={() => signIn('google')}>
           <FcGoogle />
         </button>
         <div className="pt-6">
