@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import prisma from "../prisma";
 import startOfDay from "date-fns/startOfDay";
 import endOfDay from "date-fns/endOfDay";
+import { getSecureUrl } from "../app/getSecureUrl";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
@@ -33,7 +34,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const promptInstances = await prisma.promptInstance.findMany({
+  // (PromptInstance & { prompt: Prompt; })[]
+  let myPrompts = await prisma.promptInstance.findMany({
     where: {
       user: {
         email: usr.email
@@ -45,11 +47,34 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     orderBy: {
       date: 'desc'
     }
-  })
+  });
+
+  myPrompts = await Promise.all(myPrompts.map(async (myPrompt) => {
+    const validUntilThreshold = new Date();
+    validUntilThreshold.setMinutes(validUntilThreshold.getMinutes() - 1);
+
+    if ((!myPrompt.imageSecureExpires || myPrompt.imageSecureExpires < validUntilThreshold) && myPrompt.imageLocation) {
+      const urlAndExpiryDate = await getSecureUrl(myPrompt.imageLocation)
+      return await prisma.promptInstance.update({
+        where: {
+          id: myPrompt.id
+        },
+        data: {
+          imageSecureURL: urlAndExpiryDate?.url,
+          imageSecureExpires: urlAndExpiryDate?.expires,
+        },
+        include: {
+          prompt: true
+        },
+      })
+    }
+
+    return myPrompt;
+  }));
 
   return {
     props: {
-      promptInstances: JSON.parse(JSON.stringify(promptInstances)),
+      promptInstances: JSON.parse(JSON.stringify(myPrompts)),
     },
   };
 };
