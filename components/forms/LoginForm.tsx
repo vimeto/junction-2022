@@ -10,7 +10,7 @@ const LoginForm = () => {
   const t = useTranslations("actions");
   return (
     <div>
-      <form action="" className="flex flex-col items-center pt-18 h-full">
+      <form action="" className="flex flex-col items-center pt-14 h-full">
         <div className="text-black pt-28">Hello there</div>
         <div className="text-black font-bold text-xl pb-12">Welcome Back</div>
         <div className="relative text-gray-600 focus-within:text-sky-500 flex items-center py-2">
