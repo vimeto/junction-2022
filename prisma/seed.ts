@@ -55,23 +55,7 @@ const seedUsers = async () => {
 
 const deletePrompts = async () => {
   await prisma.promptInstance.deleteMany();
-  await prisma.promptConfiguration.deleteMany();
   await prisma.prompt.deleteMany();
-};
-
-const seedPromptConfiguration = async () => {
-  // TODO: update this to smth nicer in the future
-
-  const a = await prisma.promptConfiguration.create({
-    data: {
-      name: "main-prompt-configuration",
-      configuration: {
-        0: { 0: [], 10: [], 20: [], 30: [] },
-        10: { 0: [], 10: [], 20: [], 30: [] },
-        20: { 0: [], 10: [], 20: [], 30: [] },
-      },
-    },
-  });
 };
 
 const seedPrompts = async () => {
@@ -141,15 +125,8 @@ const seedPromptInstances = async (
 const seed = async () => {
   const [mainuser, seconduser] = await seedUsers();
   await deletePrompts();
-
-  await seedPromptConfiguration();
-
   const listOfPromptIds = await seedPrompts();
   await seedPromptInstances(listOfPromptIds, mainuser, seconduser);
-
-  // const pc = await prisma.promptConfiguration.findFirst({})
-
-  // Object.values(pc).forEach(a => console.log(a))
 };
 
 seed();

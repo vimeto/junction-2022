@@ -90,13 +90,3 @@ model PromptInstance {
   prompt Prompt @relation(fields: [promptId], references: [id])
   user   User   @relation(fields: [userId], references: [id])
 }
-
-model PromptConfiguration {
-  id   String @id @default(cuid())
-  name String
-
-  configuration Json
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}

@@ -32,14 +32,11 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
     take: 1,
   });
 
-  console.log(epicPromptInstance);
-  console.log(legendaryPromptInstance);
-
   const epicDate = epicPromptInstance?.at(0)?.date;
   const legendaryDate = legendaryPromptInstance?.at(0)?.date;
 
   const getdifference = (a: Date) =>
-    (today.getTime() - a.getTime()) / (1000 * 3600 * 24);
+    Math.floor((today.getTime() - a.getTime()) / (1000 * 3600 * 24));
 
   const daysSinceEpic: number = epicDate
     ? getdifference(epicDate)
@@ -50,22 +47,19 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
 
   const newRarityLevel = getRarityNumber(daysSinceLegendary, daysSinceEpic);
 
-  const promptConfiguration = await prisma.promptConfiguration.findFirst({
+  const possiblePrompts = await prisma.prompt.findMany({
     where: {
-      name: "main-prompt-configuration",
-    },
+      activityLevel: activityLevel,
+      rarityLevel: newRarityLevel
+    }
   });
 
-  const a = promptConfiguration?.configuration as Record<
-    number,
-    Record<number, string[]>
-  >;
-
-  if (!a) {
-    return { newPrompt: null };
+  if (possiblePrompts.length === 0) {
+    return;
   }
 
-  const ids = a[activityLevel][newRarityLevel];
+  const ids = possiblePrompts.map(aa => aa.id);
+
   const randomId = ids[Math.floor(Math.random() * ids.length)];
 
   const newPromptInstance = await prisma.promptInstance.create({
