@@ -43,6 +43,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 
+  if (!userWithPrompts?.activityConfigured) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/registrationStepper ",
+      },
+      props: {},
+    };
+  }
+
   const friendPrompts = await prisma.promptInstance.findMany({
     where: {
       userId: {

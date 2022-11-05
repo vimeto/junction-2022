@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 
 
 const NavStyles = cva(
-  'font-serif text-sm mb-2',
+  'font-serif text-sm',
   {
     variants: {
       isActive: {
