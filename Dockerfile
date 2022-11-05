@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 COPY package*.json ./
 
-RUN npm ci
+RUN npm ci --legacy-peer-dep
 RUN ls -al
 
 ENV NODE_ENV production
