@@ -50,6 +50,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
       shared: true,
     },
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
+      prompt: {
+        select: {
+          translations: true,
+        },
+      },
+    },
     orderBy: {
       date: "desc",
     },
