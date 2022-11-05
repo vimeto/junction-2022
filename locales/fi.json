@@ -1,12 +1,22 @@
 {
   "page": "test",
   "actions": {
-    "next": "Next",
-    "back": "Back",
-    "finish": "Finish",
+    "next": "Seuraava",
+    "back": "Takaisin",
+    "finish": "Valmis",
     "register": "Rekisteröidy",
     "login": "Kirjaudu",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "email": "Sähköpostiosoite",
+    "password": "Salasana",
+    "name": "Nimi",
+    "username": "Käyttäjätunnus",
+    "noAccount": "Oletko rekisteröitynyt käyttäjäksi?",
+    "or": "Tai",
+    "hello": "Hei ",
+    "welcBack": "Tervetuloa Takaisin",
+    "create": "Rekisteröidy käyttäjäksi",
+    "account?": "Oletko jo rekisteröitynyt käyttäjäksi?"
   },
   "registration": {
     "steps": {

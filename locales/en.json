@@ -6,7 +6,17 @@
     "finish": "Finish",
     "register": "Register",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "username": "Username",
+    "noAccount": "Don't have an account yet?",
+    "or": "Or",
+    "hello": "Hello there,",
+    "welcBack": "Welcome Back",
+    "create": "Create an Account",
+    "account?": "Already have an accout?"
   },
   "registration": {
     "steps": {

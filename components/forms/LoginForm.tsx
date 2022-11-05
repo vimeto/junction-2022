@@ -34,8 +34,7 @@ const LoginForm = () => {
       }
 
       Router.replace("/");
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e);
     }
   };
@@ -45,8 +44,10 @@ const LoginForm = () => {
   return (
     <div>
       <div className="flex flex-col items-center pt-14 h-full">
-        <div className="text-black pt-28">Hello there</div>
-        <div className="text-black font-bold text-xl pb-12">Welcome Back</div>
+        <div className="text-black pt-28">{t("hello")}</div>
+        <div className="text-black font-bold text-xl pb-12">
+          {t("welcBack")}
+        </div>
         <div className="relative text-gray-600 focus-within:text-sky-500 flex items-center py-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <Message />
@@ -54,7 +55,7 @@ const LoginForm = () => {
           <TextInput
             className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
             defaultValue=""
-            placeholder="Email"
+            placeholder={t("email")}
             {...methods.register("email", { required: true })}
           />
         </div>
@@ -65,13 +66,18 @@ const LoginForm = () => {
           <TextInput
             className="py-2 text-sm text-black bg-gray-200 rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-80"
             defaultValue=""
-            placeholder="Password"
+            placeholder={t("password")}
             type="password"
             {...methods.register("password", { required: true })}
           />
         </div>
         <div className="pt-24 relative text-gray-600 focus-within:text-sky-500 flex items-center">
-          <Button type="submit" btnSize={"large"} textColor={"white"} onClick={handleSave}>
+          <Button
+            type="submit"
+            btnSize={"large"}
+            textColor={"white"}
+            onClick={handleSave}
+          >
             <div className="flex items-center justify-evenly">
               <Login />
               <div className="pl-2">{t("login")}</div>
@@ -80,13 +86,19 @@ const LoginForm = () => {
         </div>
       </div>
       <div className="flex flex-col items-center pt-4">
-        <div className="pb-4 text-black font-thin text-sm">Or</div>
+        <div className="pb-4 text-black font-thin text-sm">{t("or")}</div>
         <button className="text-xl btn btn-square border-spacing-0 bg-white border-gray-300 hover:bg-slate-300">
           <FcGoogle />
         </button>
         <div className="pt-6">
-          <span>{`Don't have an account yet? `}</span>
-          <TextButton type="onClick" onClick={() => router.push("/registration")}>{t("register")}</TextButton>
+          <span>{t("noAccount")}</span>
+          <TextButton
+            type="onClick"
+            onClick={() => router.push("/registration")}
+            paddingLeft
+          >
+            {t("register")}
+          </TextButton>
         </div>
       </div>
     </div>
