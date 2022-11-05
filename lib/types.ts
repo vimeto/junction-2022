@@ -1,4 +1,4 @@
-import { Prompt, PromptInstance, User } from "@prisma/client";
+import { Prisma, Prompt, PromptInstance, User } from "@prisma/client";
 
 export const defaultLocale = "en";
 
@@ -25,6 +25,11 @@ export type FeedbackType =
   | "freeText"
   | "multipleChoice"
   | "markCompleted";
+
+export type PromptInstanceWithUsernameAndTranslations = PromptInstance & {
+  user: { name: string };
+  prompt: { translations: Prisma.JsonValue };
+};
 
 export type PromptInstanceWithPrompt = PromptInstance & { prompt: Prompt };
 
