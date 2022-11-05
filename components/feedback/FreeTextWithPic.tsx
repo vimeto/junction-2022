@@ -1,5 +1,6 @@
 import { CardTitle } from "@ui/Card/CardTitle";
 import { TextArea } from "@ui/TextArea";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   title: string;
@@ -8,10 +9,12 @@ type Props = {
 };
 
 const FreeTextWithPic = ({ title, inputTitle, imageButton }: Props) => {
+  const { register } = useFormContext();
+
   return (
     <>
       <CardTitle>{title}</CardTitle>
-      <TextArea placeholder={inputTitle} rows={4} />
+      <TextArea {...register("inputValue")} placeholder={inputTitle} rows={4} />
       <div className="w-3/4 m-auto py-4">{imageButton}</div>
     </>
   );

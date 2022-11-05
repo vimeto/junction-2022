@@ -1,11 +1,12 @@
 import { Button } from "@ui/Button/Button";
+import { CheckBox } from "@ui/CheckBox";
 import { LoadSpinner } from "@ui/LoadingSpinner";
 import router from "next/router";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getTranslations } from "../../lib/translationUtils";
 import { FeedbackType, PromptInstanceWithPrompt } from "../../lib/types";
-import FreeTextWithPic from "./FreeText";
+import FreeTextWithPic from "./FreeTextWithPic";
 import FreeText from "./FreeText";
 import MultipleChoice from "./MultipleChoice";
 
@@ -29,6 +30,7 @@ const renderingUtils = ({ promptInstanceWithPrompt }: Props) => {
         <FreeTextWithPic
           title={translations.title}
           inputTitle={translations.inputTitle}
+          imageButton={translations.imageButton}
         />
       );
     case "multipleChoice":
@@ -45,11 +47,13 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
       inputValue: undefined, // string
       enumValue: undefined, // number
       imageUrl: undefined, // string
+      share: false,
     },
   });
 
   const onSubmit = async (data: any) => {
     try {
+      console.log(data);
       setLoading(true);
       const res = await fetch("/api/", {
         method: "POST",
@@ -68,11 +72,23 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
 
   return (
     <FormProvider {...methods}>
-      <div className="flex flex-col items-center justify-center">
-        <div>{renderingUtils({ promptInstanceWithPrompt })}</div>
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full">
+          {renderingUtils({ promptInstanceWithPrompt })}
+        </div>
         <div className="py-2">
-          <Button onClick={handleSave} />
-          {loading && <LoadSpinner />}
+          <div className="flex items-center m-auto py-4 justify-evenly">
+            <div className="flex items-center">
+              <div>Share with friends</div>
+              <CheckBox {...methods.register("share")} />
+            </div>
+            <div className="flex-1">
+              <Button fullWidth onClick={handleSave}>
+                Save!
+              </Button>
+              {loading && <LoadSpinner />}
+            </div>
+          </div>
         </div>
       </div>
     </FormProvider>

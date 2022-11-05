@@ -38,8 +38,8 @@ const Task = ({ locale, user }: Props) => {
         }),
       });
       const newPrompt = await res.json();
-      console.log(newPrompt);
-      setPrompt(newPrompt);
+      const { promptInstance } = newPrompt;
+      setPrompt(promptInstance);
     } catch (e) {
       console.log(e);
     }
@@ -48,7 +48,11 @@ const Task = ({ locale, user }: Props) => {
   return (
     <div className="flex flex-col items-center h-full justify-between">
       <div className="flex-1 w-full">
-        <BearWithBubble title="Here is your quest!" />
+        <BearWithBubble
+          title={prompt ? "Here is your quest!" : "Choose a quest type"}
+          aux={prompt ? undefined : "How are you doing today?"}
+          bearSrc="/winking_bear.svg"
+        />
       </div>
       <div className="flex flex-col justify-center w-3/4">
         <AnimatePresence>
