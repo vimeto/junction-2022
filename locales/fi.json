@@ -3,7 +3,10 @@
   "actions": {
     "next": "Next",
     "back": "Back",
-    "finish": "Finish"
+    "finish": "Finish",
+    "register": "Rekisteröidy",
+    "login": "Kirjaudu",
+    "logout": "Kirjaudu ulos"
   },
   "registration": {
     "steps": {
