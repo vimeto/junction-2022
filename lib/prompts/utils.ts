@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import prisma from "../prisma";
 import startOfDay from "date-fns/startOfDay";
 import endOfDay from "date-fns/endOfDay";
+import { getSecureUrl } from "../app/getSecureUrl";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
@@ -53,7 +54,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const friendPrompts = await prisma.promptInstance.findMany({
+  // returns list of prompt instances by friends
+  let friendPrompts = await prisma.promptInstance.findMany({
     where: {
       userId: {
         in: userWithPrompts?.following.map((u) => u.id),
@@ -77,15 +79,37 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 
-  if (!userWithPrompts) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/registrationStepper ",
-      },
-      props: {},
-    };
-  }
+  friendPrompts = await Promise.all(friendPrompts.map(async (friendPrompt) => {
+    const validUntilThreshold = new Date();
+    validUntilThreshold.setMinutes(validUntilThreshold.getMinutes() - 1);
+
+    if ((!friendPrompt.imageSecureExpires || friendPrompt.imageSecureExpires < validUntilThreshold) && friendPrompt.imageLocation) {
+      const urlAndExpiryDate = await getSecureUrl(friendPrompt.imageLocation)
+      return await prisma.promptInstance.update({
+        where: {
+          id: friendPrompt.id
+        },
+        data: {
+          imageSecureURL: urlAndExpiryDate?.url,
+          imageSecureExpires: urlAndExpiryDate?.expires,
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          prompt: {
+            select: {
+              translations: true,
+            },
+          },
+        },
+      })
+    }
+
+    return friendPrompt;
+  }));
 
   return {
     props: {
