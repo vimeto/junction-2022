@@ -599,6 +599,52 @@ const seedPrompts = async () => {
         },
       }
     },
+    {
+      activityLevel: 10,
+      rarityLevel: 0,
+      feedbackType: "markCompleted",
+      translations: {
+        en: {
+          title: "Do 10 squats",
+          description: "Small exercise in the middle of day helps you to stay focused. I'm proud of how active you are!",
+          inputTitle: "",
+          imageButton: "",
+          submit: "Save!",
+          enumValues: {}
+        },
+        fi: {
+          title: "Tee 10 kyykkyä",
+          description: "Small exercise in the middle of day helps you to stay focused. I'm proud of how active you are!",
+          inputTitle: "",
+          imageButton: "",
+          submit: "Tallenna!",
+          enumValues: {}
+        },
+      }
+    },
+    {
+      activityLevel: 20,
+      rarityLevel: 0,
+      feedbackType: "markCompleted",
+      translations: {
+        en: {
+          title: "Do 20 squats",
+          description: "Small exercise in the middle of day helps you to stay focused. I'm proud of how active you are!",
+          inputTitle: "",
+          imageButton: "",
+          submit: "Save!",
+          enumValues: {}
+        },
+        fi: {
+          title: "Tee 20 kyykkyä",
+          description: "Small exercise in the middle of day helps you to stay focused. I'm proud of how active you are!",
+          inputTitle: "",
+          imageButton: "",
+          submit: "Tallenna!",
+          enumValues: {}
+        },
+      }
+    },
   ]
 }
 
