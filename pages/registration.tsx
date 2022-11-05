@@ -5,7 +5,7 @@ import RegistrationForm from "../components/forms/RegistrationForm";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
 
-  if (!session) {
+  if (session?.user) {
     return {
       redirect: {
         permanent: true,
