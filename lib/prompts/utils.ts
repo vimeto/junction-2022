@@ -71,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       prompt: {
         select: {
           translations: true,
+          rarityLevel: true,
         },
       },
     },

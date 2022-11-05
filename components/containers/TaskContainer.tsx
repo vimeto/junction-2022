@@ -1,5 +1,4 @@
 import { TextButton } from "@ui/Button/TextButton";
-import { AnimatePresence, motion } from "framer-motion";
 import router from "next/router";
 import { useState } from "react";
 import {
@@ -83,55 +82,43 @@ const TaskContainer = ({ locale, user }: Props) => {
           hideBubble={completed}
         />
       </div>
-      <div className="flex flex-col justify-center w-3/4">
-        <AnimatePresence>
-          {prompt ? (
-            <motion.div
-              key="Task"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <TaskComponent
-                promptInstanceWithPrompt={prompt}
-                completed={completed}
-                setCompleted={setCompleted}
-              />
-              {userPromptLength <= 1 && !completed && (
-                <div className="mt-4 flex items-center justify-center">
-                  <div className="pr-2">I cannot do this one.</div>
-                  <TextButton
-                    onClick={() =>
-                      handleReroll(
-                        prompt.prompt.activityLevel > 0
-                          ? TaskType.Active
-                          : TaskType.Mindful
-                      )
-                    }
-                  >
-                    Reroll
-                  </TextButton>
-                </div>
-              )}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="NewTask"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <NewTask
-                createPrompt={handleNewPrompt}
-                activityLevel={user.activityLevel}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="flex flex-col justify-center w-full">
+        {prompt ? (
+          <>
+            <TaskComponent
+              promptInstanceWithPrompt={prompt}
+              completed={completed}
+              setCompleted={setCompleted}
+            />
+            {userPromptLength <= 1 && !completed && (
+              <div className="mt-4 flex items-center justify-center">
+                <div className="pr-2">I cannot do this one.</div>
+                <TextButton
+                  onClick={() =>
+                    handleReroll(
+                      prompt.prompt.activityLevel > 0
+                        ? TaskType.Active
+                        : TaskType.Mindful
+                    )
+                  }
+                >
+                  Reroll
+                </TextButton>
+              </div>
+            )}
+          </>
+        ) : (
+          <div>
+            <NewTask
+              createPrompt={handleNewPrompt}
+              activityLevel={user.activityLevel}
+            />
+          </div>
+        )}
       </div>
       <div className="flex-1 flex-col text-center">
         {user.sharing && (
-          <div className="pt-4">
+          <div className="pt-4 text-center">
             <TextButton onClick={() => router.push("/")}>
               Remind me later
             </TextButton>

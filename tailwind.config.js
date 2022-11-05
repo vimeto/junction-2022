@@ -12,8 +12,12 @@ module.exports = {
       },
       backgroundImage: {
         "happy-bear": "url('/happy_bear.svg')",
+        "sad-bear": "url('/sad_bear.svg')",
         "concerned-bear": "url('/concerned_bear.svg')",
       },
+    },
+    fontFamily: {
+      sans: ["Poppins"],
     },
   },
   plugins: [require("daisyui")],

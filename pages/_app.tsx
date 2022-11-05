@@ -8,6 +8,7 @@ import fi from "../locales/fi.json";
 import en from "../locales/en.json";
 import se from "../locales/se.json";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 const messages = { fi, en, se };
 

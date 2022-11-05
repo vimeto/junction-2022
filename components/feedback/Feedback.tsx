@@ -100,7 +100,6 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
               <Button fullWidth onClick={handleSave}>
                 Save!
               </Button>
-              {loading && <LoadSpinner />}
             </div>
           </div>
         </div>

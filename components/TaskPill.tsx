@@ -23,7 +23,11 @@ const TaskPill = ({ user, locale }: Props) => {
   if (!promptInstances.length) {
     return (
       <Button intent="primary" btnSize="large" onClick={handleNewTask}>
-        Choose a task
+        <div className="flex items-center justify-center relative">
+          <div className="px-2 text-left">Choose a task</div>
+          <div className="px-16"></div>
+          <div className="absolute right-1 pt-2 pl-2 w-24 h-24 bg-cover bg-concerned-bear"></div>
+        </div>
       </Button>
     );
   }
@@ -39,7 +43,7 @@ const TaskPill = ({ user, locale }: Props) => {
         <div className="pl-20"></div>
         <div
           className={`absolute right-1 pt-2 pl-2 w-24 h-24 bg-cover ${
-            completed ? "bg-happy-bear" : "bg-concerned-bear"
+            completed ? "bg-happy-bear" : "bg-sad-bear"
           }`}
         ></div>
       </div>
