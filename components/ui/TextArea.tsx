@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "class-variance-authority";
-import React, { RefObject } from "react";
+import React from "react";
 
 const textAreaStyles = cva("textarea resize-none h-auto", {
   variants: {
@@ -32,8 +32,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
   }
 );
 
-TextArea.displayName = 'Textarea'
+TextArea.displayName = "Textarea";
 
-export {
-  TextArea,
-}
+export { TextArea };
