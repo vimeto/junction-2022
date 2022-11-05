@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 
 const textButtonStyles = cva(
-  "font-serif text-sm mb-2 text-black hover:text-sky-500",
+  "font-serif text-sm text-black hover:text-sky-500",
   {
     variants: {
       paddingLeft: {
