@@ -32,9 +32,6 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
     take: 1,
   });
 
-  console.log(epicPromptInstance);
-  console.log(legendaryPromptInstance);
-
   const epicDate = epicPromptInstance?.at(0)?.date;
   const legendaryDate = legendaryPromptInstance?.at(0)?.date;
 

@@ -127,10 +127,6 @@ const seed = async () => {
   await deletePrompts();
   const listOfPromptIds = await seedPrompts();
   await seedPromptInstances(listOfPromptIds, mainuser, seconduser);
-
-  // const pc = await prisma.promptConfiguration.findFirst({})
-
-  // Object.values(pc).forEach(a => console.log(a))
 };
 
 seed();

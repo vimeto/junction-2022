@@ -22,7 +22,12 @@ const handler: NextApiHandler = async (req, res) => {
   const active = Boolean(req.body.active) || false;
   const activityLevel = active ? (user?.activityLevel || 0) : 0
 
-  const newPrompt = await createNewPrompt(activityLevel, user)
+  const newPromptObject = await createNewPrompt(activityLevel, user)
+  const newPrompt = newPromptObject?.newPrompt
+
+  if (!newPrompt) {
+    return res.status(500).send({ error: "smth went wrong" });
+  }
 
   console.log(newPrompt)
 
