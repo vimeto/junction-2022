@@ -20,7 +20,13 @@ export enum TaskType {
   "Mindful",
 }
 
-type PromptInstanceWithPrompt = PromptInstance & { prompt: Prompt };
+export type FeedbackType =
+  | "freeTextWithPic"
+  | "freeText"
+  | "multipleChoice"
+  | "markCompleted";
+
+export type PromptInstanceWithPrompt = PromptInstance & { prompt: Prompt };
 
 export type UserWithPromptInstance = User & {
   promptInstances: PromptInstanceWithPrompt[];

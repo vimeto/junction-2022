@@ -47,12 +47,18 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleRegister)}>
-      <TextInput
-        defaultValue=""
-        placeholder="Username"
-        {...register("name", { required: true })}
-      />
+    <form
+      onSubmit={handleSubmit(handleRegister)}
+      className="flex flex-col items-center justify-center h-full"
+    >
+      <div className="flex items-center">
+        <div className="pr-2">Username</div>
+        <TextInput
+          defaultValue=""
+          placeholder="Username"
+          {...register("name", { required: true })}
+        />
+      </div>
       <TextInput
         defaultValue=""
         placeholder="Username"
