@@ -1,6 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority";
 
-const cardStyles = cva("card shadow-aapon-varjo p-6 rounded-xl", {
+const cardStyles = cva("card shadow-aapon-varjo rounded-xl", {
   variants: {
     isActive: {
       primaryActive: "bg-sky-500",
@@ -9,9 +9,17 @@ const cardStyles = cva("card shadow-aapon-varjo p-6 rounded-xl", {
       secondaryNonActive: "bg-teal-200",
     },
     padding: {
-      2: "p-2",
       0: "p-0",
+      2: "p-2",
+      4: "p-4",
+      6: "p-6",
     },
+  },
+  defaultVariants: {
+    padding: 6,
+  },
+  defaultVariants: {
+    padding: 6,
   },
 });
 
