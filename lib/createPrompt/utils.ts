@@ -1,9 +1,6 @@
 import { User } from "@prisma/client";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "../prisma";
 import { getRarityNumber } from "../prompts/createNew";
-
 
 export const createNewPrompt = async (activityLevel: number, user: User) => {
   const today = new Date();
@@ -12,67 +9,77 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
   const epicPromptInstance = await prisma.promptInstance.findMany({
     where: {
       prompt: {
-        rarityLevel: 20
+        rarityLevel: 20,
       },
-      userId: user.id
+      userId: user.id,
     },
     orderBy: {
-      date: 'desc'
+      date: "desc",
     },
-    take: 1
-  })
+    take: 1,
+  });
 
   const legendaryPromptInstance = await prisma.promptInstance.findMany({
     where: {
       prompt: {
-        rarityLevel: 30
+        rarityLevel: 30,
       },
-      userId: user.id
+      userId: user.id,
     },
     orderBy: {
-      date: 'desc'
+      date: "desc",
     },
-    take: 1
+    take: 1,
   });
 
-  const epicDate = epicPromptInstance?.at(0)?.date
-  const legendaryDate = legendaryPromptInstance?.at(0)?.date
+  const epicDate = epicPromptInstance?.at(0)?.date;
+  const legendaryDate = legendaryPromptInstance?.at(0)?.date;
 
-  const getdifference = (a: Date) => (today.getTime() - a.getTime()) / (1000 * 3600 * 24);
+  const getdifference = (a: Date) =>
+    Math.floor((today.getTime() - a.getTime()) / (1000 * 3600 * 24));
 
-  const daysSinceEpic: number = epicDate ? getdifference(epicDate) : getdifference(user.createdAt);
-  const daysSinceLegendary: number = legendaryDate ? getdifference(legendaryDate) : getdifference(user.createdAt);
+  const daysSinceEpic: number = epicDate
+    ? getdifference(epicDate)
+    : getdifference(user.createdAt);
+  const daysSinceLegendary: number = legendaryDate
+    ? getdifference(legendaryDate)
+    : getdifference(user.createdAt);
 
   const newRarityLevel = getRarityNumber(daysSinceLegendary, daysSinceEpic);
 
-  const promptConfiguration = await prisma.promptConfiguration.findFirst({
+  const possiblePrompts = await prisma.prompt.findMany({
     where: {
-      name: "main-prompt-configuration"
+      activityLevel: activityLevel,
+      rarityLevel: newRarityLevel
     }
   });
 
-  const a = promptConfiguration?.configuration as Record<number, Record<number, string[]>>;
+  if (possiblePrompts.length === 0) {
+    return;
+  }
 
-  if (!a) { return {newPrompt: null } }
+  const ids = possiblePrompts.map(aa => aa.id);
 
-  const ids = a[activityLevel][newRarityLevel];
   const randomId = ids[Math.floor(Math.random() * ids.length)];
 
   const newPromptInstance = await prisma.promptInstance.create({
     data: {
       prompt: {
         connect: {
-          id: randomId
-        }
+          id: randomId,
+        },
       },
       user: {
         connect: {
           email: user.email || "",
-        }
+        },
       },
-      shared: false
-    }
-  })
+      shared: false,
+    },
+    include: {
+      prompt: true,
+    },
+  });
 
-  return { newPrompt: newPromptInstance }
-}
+  return { newPrompt: newPromptInstance };
+};

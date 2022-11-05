@@ -1,3 +1,24 @@
 {
-  "page": "test"
+  "page": "test",
+  "actions": {
+    "next": "Next",
+    "back": "Back",
+    "finish": "Finish"
+  },
+  "registration": {
+    "steps": {
+      "intro": {
+        "header": "A couple facts about you",
+        "description": "It will helps us choose more fitting tasks for you."
+      },
+      "activity": {
+        "header": "What is your activity level",
+        "description": "It will helps us choose tasks that you will feel comfortable with"
+      },
+      "sharing": {
+        "header": "Would you prefer to share activities with friends?",
+        "description": "Allos sharing your activities when you feel like it"
+      }
+    }
+  }
 }

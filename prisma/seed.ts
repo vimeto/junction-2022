@@ -1,133 +1,132 @@
 import bcrypt from "bcryptjs";
-import { PrismaClient } from '@prisma/client';
+import prisma from "../lib/prisma";
 import { createPrompt } from "../lib/app/createPrompt";
-const prisma = new PrismaClient();
+import { prompts } from "../lib/createPrompt/prompts";
+import { User } from "@prisma/client";
+
+// const prisma = new PrismaClient();
 
 const seedUsers = async () => {
   const salt = await bcrypt.genSalt(10);
 
-  const data = {
-    name: "Root User",
-    email: "root.user@gmail.com",
-    passwordDigest: await bcrypt.hash("password", salt)
-  }
+  const mainuser =
+    (await prisma.user.findUnique({
+      where: {
+        email: "root.user@gmail.com",
+      },
+    })) ||
+    (await prisma.user.create({
+      data: {
+        name: "Root User",
+        email: "root.user@gmail.com",
+        passwordDigest: await bcrypt.hash("password", salt),
+      },
+    }));
 
-  await prisma.user.create({ data })
-}
+  const secondUser =
+    (await prisma.user.findUnique({
+      where: {
+        email: "second.user@gmail.com",
+      },
+    })) ||
+    (await prisma.user.create({
+      data: {
+        name: "second User",
+        email: "second.user@gmail.com",
+        passwordDigest: await bcrypt.hash("password", salt),
+      },
+    }));
+
+  await prisma.user.update({
+    where: {
+      id: mainuser.id,
+    },
+    data: {
+      following: {
+        connect: {
+          id: secondUser.id,
+        },
+      },
+    },
+  });
+
+  return [mainuser, secondUser];
+};
+
+const deletePrompts = async () => {
+  await prisma.promptInstance.deleteMany();
+  await prisma.prompt.deleteMany();
+};
 
 const seedPrompts = async () => {
-  const dataA = {
-    activityLevel: 20,
-    rarityLevel: 10,
-    feedbackType: "freeTextWithPic" as "freeText" | "freeTextWithPic" | "multipleChoise" | "markCompleted",
-    translations: {
-      en: {
-        title: "Go walking outside with friend",
-        description: "Go walking now pls",
-        inputTitle: "How did you like the walk",
-        imageButton: "Upload pic",
-        submit: "Save!",
-        enumValues: {} as Record<number, string>
-      },
-      fi: {
-        title: "Mene kävelemään broidin kanssa",
-        description: "Käyppä vaeltamassa",
-        inputTitle: "Miten pidit kävelystä",
-        imageButton: "Lataa kuva",
-        submit: "Tallenna!",
-        enumValues: {} as Record<number, string>
-      },
-    }
-  }
+  const datas = prompts;
+  const ids = await Promise.all(
+    datas.map(async (data) => await createPrompt(data))
+  );
 
-  const dataB = {
-    activityLevel: 10,
-    rarityLevel: 10,
-    feedbackType: "freeText",
-    translations: {
-      en: {
-        title: "Take a nap",
-        description: "You are tired, sleep pls",
-        inputTitle: "How was it",
-        submit: "Save",
-      },
-      fi: {
-        title: "Mene päikkäreille",
-        description: "Nyt päikkäreille broidi",
-        inputTitle: "Miltä tuntui päikkärit",
-        submit: "Tallenna!",
-      },
-    }
-  }
-  // const b = await prisma.prompt.create({
-  //   data: {
-  //     activityLevel: 10,
-  //     rarityLevel: 10,
-  //     feedbackType: "freeText",
-  //     translations: {
-  //       en: {
-  //         title: "Go to sleep",
-  //         description: "You have been working hard, now please go to sleep",
-  //         inputTitle: "What did you feel about sleeping",
-  //         submit: "Save!",
-  //       },
-  //       fi: {
-  //         title: "Mene nukkumaan",
-  //         description: "Olet ollut pitkään ylhäällä, nyt mene nukkumaan",
-  //         inputTitle: "Miltä tuntui nukkua",
-  //         submit: "Tallenna!",
-  //       },
-  //     }
-  //   }
-  // });
+  // const aId = await createPrompt(dataA);
+  // const bId = await createPrompt(dataB);
 
-  // const c = await prisma.promptConfiguration.create({
-  //   data: {
-  //     name: "main-prompt-configuration",
-  //     configuration: {
-  //       [a.activityLevel]: {
-  //         [a.rarityLevel]: [a.id]
-  //       },
-  //       [b.activityLevel]: {
-  //         [b.rarityLevel]: [b.id]
-  //       },
-  //     }
-  //   }
-  // })
+  console.log(ids);
 
-  const aId = await createPrompt(dataA);
-  const bId = await createPrompt(dataB);
+  return ids;
+};
 
-  return [aId, bId]
-}
+const seedPromptInstances = async (
+  listOfIds: (string | undefined)[],
+  userA: User,
+  userB: User
+) => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
 
-const seedPromptInstances = async (listOfIds: (string | undefined)[]) => {
-  await prisma.promptInstance.create({
+  const beforeyesterday = new Date();
+  beforeyesterday.setDate(beforeyesterday.getDate() - 1);
+
+  const aaa = await prisma.promptInstance.create({
     data: {
-      inputValue: "this was nice",
+      inputValue: "I liked this",
       shared: true,
+      date: yesterday,
       prompt: {
         connect: {
-          id: listOfIds[0]
-        }
+          id: listOfIds[0],
+        },
       },
       user: {
         connect: {
-          email: "root.user@gmail.com"
-        }
-      }
-    }
-  })
-}
+          id: userB.id,
+        },
+      },
+    },
+  });
+
+  const bbb = await prisma.promptInstance.create({
+    data: {
+      inputValue: "This was exhausting",
+      shared: true,
+      date: beforeyesterday,
+      prompt: {
+        connect: {
+          id: listOfIds[1],
+        },
+      },
+      user: {
+        connect: {
+          id: userB.id,
+        },
+      },
+    },
+  });
+
+  console.log(aaa, bbb);
+};
 
 const seed = async () => {
-  // await seedUsers();
+  const [mainuser, seconduser] = await seedUsers();
+  await deletePrompts();
   const listOfPromptIds = await seedPrompts();
-  await seedPromptInstances(listOfPromptIds);
-
-  const pc = await prisma.promptConfiguration.findFirst({})
-
-  // Object.values(pc).forEach(a => console.log(a))
-}
+  await seedPromptInstances(listOfPromptIds, mainuser, seconduser);
+};
 
 seed();
