@@ -28,9 +28,13 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   image          String?
+  activityLevel  Int       @default(0)
 
-  Account Account[]
-  Session Session[]
+  Account         Account[]
+  Session         Session[]
+  promptInstances PromptInstance[]
+  followedBy      User[]           @relation("UserFollows")
+  following       User[]           @relation("UserFollows")
 }
 
 model Account {
@@ -50,4 +54,49 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Prompt {
+  id String @id @default(cuid())
+
+  activityLevel Int
+  rarityLevel   Int
+  feedbackType  String
+
+  // all must include title and description
+  translations Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  promptInstances PromptInstance[]
+}
+
+model PromptInstance {
+  id String @id @default(cuid())
+
+  date       DateTime @default(now())
+  completed  Boolean  @default(false)
+  inputValue String?
+  enumValue  Int?
+  imageUrl   String?
+  shared     Boolean
+  promptId   String
+  userId     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  prompt Prompt @relation(fields: [promptId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model PromptConfiguration {
+  id   String @id @default(cuid())
+  name String
+
+  configuration Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

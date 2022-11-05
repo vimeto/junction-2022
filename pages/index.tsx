@@ -1,33 +1,30 @@
-import type { GetServerSideProps, NextPage } from 'next'
-import { getSession } from 'next-auth/react';
-import prisma from '../lib/prisma';
+import type { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
+import Feed from "../components/Feed";
+import TaskPill from "../components/TaskPill";
+import prisma from "../lib/prisma";
+import { getServerSideProps as gSSP } from "../lib/prompts/utils";
+import { UserWithPromptInstance } from "../lib/types";
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+export const getServerSideProps = gSSP;
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login ",
-      },
-      props:{},
-    };
-  }
+type Props = {
+  locale?: string;
+  user: UserWithPromptInstance;
+};
 
-  return {
-    props: {
-      locale: ctx.locale,
-    }
-  }
-}
-
-const Home: NextPage = () => {
+const Home = ({ user, locale }: Props) => {
   return (
-    <div className='bg-gray-200'>
-      jeejee
+    <div className="flex flex-col items-center h-full justify-between">
+      <div className="flex-1 w-full p-4">
+        <TaskPill user={user} locale={locale} />
+      </div>
+      <div>Companions</div>
+      <div className="flex items-center w-3/4">
+        <Feed />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
