@@ -1,7 +1,20 @@
-export interface Props extends React.HTMLProps<HTMLButtonElement> {};
+import { cva, VariantProps } from "class-variance-authority";
 
-export function TextButton({type, ...props}: Props) {
-  return(
-    <button className='font-serif text-sm mb-2 text-black hover:text-sky-500' {...props}/>
-  )
+const textButtonStyles = cva(
+  "font-serif text-sm mb-2 text-black hover:text-sky-500",
+  {
+    variants: {
+      paddingLeft: {
+        true: "pl-2",
+      },
+    },
+  }
+);
+
+export interface Props
+  extends React.HTMLProps<HTMLButtonElement>,
+    VariantProps<typeof textButtonStyles> {}
+
+export function TextButton({ paddingLeft, type, ...props }: Props) {
+  return <button className={textButtonStyles({ paddingLeft })} {...props} />;
 }
