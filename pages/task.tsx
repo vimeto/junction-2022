@@ -27,7 +27,7 @@ const Task = ({ locale, user }: Props) => {
     if (!promptInstances.length) {
       router.push("/newTask");
     }
-  }, []);
+  }, [promptInstances]);
 
   const handleComplete = () => {
     setCompleted(true);

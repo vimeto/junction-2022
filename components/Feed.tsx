@@ -32,13 +32,13 @@ const test = [
 const Feed = () => {
   return (
     <div>
-      {test.map((p) => (
-        <div className="pb-4">
+      {test.map((p, index) => (
+        <div className="pb-4" key={index}>
           <Card>
             <CardTitle>{p.name}</CardTitle>
             <CardWithImage imageAlt={p.imageSrc}>{p.description}</CardWithImage>
           </Card>
-        </div>
+      </div>
       ))}
     </div>
   );

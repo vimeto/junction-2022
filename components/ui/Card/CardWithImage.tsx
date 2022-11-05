@@ -14,6 +14,8 @@ interface ExtraTypes {
 
 export interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, VariantProps<typeof cardWithImageStyles>, ExtraTypes {};
 
+// TODO: update to <Image />
+
 export function CardWithImage({ imageUrl, imageAlt, textColor, ...props }: Props) {
   return (
     <div className={cardWithImageStyles()}>

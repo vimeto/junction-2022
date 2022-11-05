@@ -19,7 +19,7 @@ export interface Props
   extends React.HTMLProps<HTMLInputElement>,
     VariantProps<typeof inputStyles> {}
 
-export const TextInput = React.forwardRef<HTMLInputElement, Props>(
+const TextInput = React.forwardRef<HTMLInputElement, Props>(
   ({ fullWidth, intent, ...props }: Props, ref) => {
     return (
       <input
@@ -30,3 +30,9 @@ export const TextInput = React.forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+TextInput.displayName = 'TextInput'
+
+export {
+  TextInput,
+}
