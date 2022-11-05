@@ -80,37 +80,44 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 
-  friendPrompts = await Promise.all(friendPrompts.map(async (friendPrompt) => {
-    const validUntilThreshold = new Date();
-    validUntilThreshold.setMinutes(validUntilThreshold.getMinutes() - 1);
+  friendPrompts = await Promise.all(
+    friendPrompts.map(async (friendPrompt) => {
+      const validUntilThreshold = new Date();
+      validUntilThreshold.setMinutes(validUntilThreshold.getMinutes() - 1);
 
-    if ((!friendPrompt.imageSecureExpires || friendPrompt.imageSecureExpires < validUntilThreshold) && friendPrompt.imageLocation) {
-      const urlAndExpiryDate = await getSecureUrl(friendPrompt.imageLocation)
-      return await prisma.promptInstance.update({
-        where: {
-          id: friendPrompt.id
-        },
-        data: {
-          imageSecureURL: urlAndExpiryDate?.url,
-          imageSecureExpires: urlAndExpiryDate?.expires,
-        },
-        include: {
-          user: {
-            select: {
-              name: true,
+      if (
+        (!friendPrompt.imageSecureExpires ||
+          friendPrompt.imageSecureExpires < validUntilThreshold) &&
+        friendPrompt.imageLocation
+      ) {
+        const urlAndExpiryDate = await getSecureUrl(friendPrompt.imageLocation);
+        return await prisma.promptInstance.update({
+          where: {
+            id: friendPrompt.id,
+          },
+          data: {
+            imageSecureURL: urlAndExpiryDate?.url,
+            imageSecureExpires: urlAndExpiryDate?.expires,
+          },
+          include: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
+            prompt: {
+              select: {
+                translations: true,
+                rarityLevel: true,
+              },
             },
           },
-          prompt: {
-            select: {
-              translations: true,
-            },
-          },
-        },
-      })
-    }
+        });
+      }
 
-    return friendPrompt;
-  }));
+      return friendPrompt;
+    })
+  );
 
   return {
     props: {
