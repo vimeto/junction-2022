@@ -102,8 +102,8 @@ const seedPromptInstances = async (
       date: yesterday,
       prompt: {
         connect: {
-          id: listOfIds[0]
-        }
+          id: listOfIds[0],
+        },
       },
       user: {
         connect: {
@@ -147,6 +147,6 @@ const seed = async () => {
   // const pc = await prisma.promptConfiguration.findFirst({})
 
   // Object.values(pc).forEach(a => console.log(a))
-}
+};
 
 seed();
