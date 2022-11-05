@@ -81,10 +81,13 @@ model PromptInstance {
   completed  Boolean  @default(false)
   inputValue String?
   enumValue  Int?
-  imageUrl   String?
   shared     Boolean
   promptId   String
   userId     String
+
+  imageLocation      String?
+  imageSecureURL     String?
+  imageSecureExpires DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
