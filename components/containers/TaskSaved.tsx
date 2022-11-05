@@ -2,6 +2,7 @@ import { Card } from "@ui/Card/Card";
 import { CardText } from "@ui/Card/CardText";
 import { CardTitle } from "@ui/Card/CardTitle";
 import { CheckBox } from "@ui/CheckBox";
+import { Ping } from "@ui/Ping";
 import { getTranslations } from "../../lib/translationUtils";
 import { UserWithPromptInstance } from "../../lib/types";
 
@@ -15,15 +16,22 @@ const TaskSaved = ({ locale, user }: Props) => {
   const prompt = promptInstance.prompt;
   const translations = getTranslations(prompt.translations, locale);
 
+  console.log(promptInstance);
+
   return (
     <div className="flex flex-col items-center h-full justify-center">
       <div className="flex flex-col justify-center w-3/4">
         <Card>
           <div className="flex items-center justify-center">
-            <CardTitle>{translations.title}</CardTitle>
-            <CheckBox checked readOnly />
+            <CardTitle>
+              <div className="flex items-center justify-between">
+                {translations.title}
+                <CheckBox checked readOnly />
+                <Ping rarity={prompt.rarityLevel} />
+              </div>
+            </CardTitle>
           </div>
-          <CardText>{promptInstance.inputValue}</CardText>
+          <CardText>{promptInstance.inputValue ?? ""}</CardText>
           <div>
             {promptInstance.imageSecureURL && (
               <img

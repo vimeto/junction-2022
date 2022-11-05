@@ -8,7 +8,7 @@ type Props = {
 
 const NewTask = ({ createPrompt, activityLevel }: Props) => {
   return (
-    <div>
+    <div className="w-full flex flex-col items-center justify-center">
       {activityLevel !== ActivityLevel.Low && (
         <div className="my-4">
           <Button

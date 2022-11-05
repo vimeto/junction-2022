@@ -3,35 +3,9 @@ import { Card } from "@ui/Card/Card";
 import { CardText } from "@ui/Card/CardText";
 import { CardTitle } from "@ui/Card/CardTitle";
 import { CardWithImage } from "@ui/Card/CardWithImage";
+import { Ping } from "@ui/Ping";
 import { getTranslations } from "../lib/translationUtils";
 import { PromptInstanceWithUsernameAndTranslations } from "../lib/types";
-
-const test = [
-  {
-    name: "Santeri",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, harum, tenetur cum vitae eum corrupti ad facilis veritatis provident, delectus rem. Quidem soluta illum corrupti.",
-    imageSrc: "/happy_bear.svg",
-  },
-  {
-    name: "Santeri",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, harum, tenetur cum vitae eum corrupti ad facilis veritatis provident, delectus rem. Quidem soluta illum corrupti.",
-    imageSrc: "/happy_bear.svg",
-  },
-  {
-    name: "Santeri",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, harum, tenetur cum vitae eum corrupti ad facilis veritatis provident, delectus rem. Quidem soluta illum corrupti.",
-    imageSrc: "/happy_bear.svg",
-  },
-  {
-    name: "Santeri",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, harum, tenetur cum vitae eum corrupti ad facilis veritatis provident, delectus rem. Quidem soluta illum corrupti.",
-    imageSrc: "/happy_bear.svg",
-  },
-];
 
 type Props = {
   friendPromps: PromptInstanceWithUsernameAndTranslations[];
@@ -46,7 +20,11 @@ const Feed = ({ friendPromps }: Props) => {
         return (
           <div className="pb-4" key={p.id}>
             <Card>
-              <CardTitle>{p.user.name}</CardTitle>
+              <CardTitle>
+                <div className="flex justify-between">
+                  {p.user.name} <Ping rarity={p.prompt.rarityLevel} />
+                </div>
+              </CardTitle>
               {p.imageSecureURL ? (
                 <CardWithImage imageUrl={p.imageSecureURL}>
                   <div className="font-bold mb-1">{translations.title}</div>

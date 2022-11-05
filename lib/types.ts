@@ -28,7 +28,7 @@ export type FeedbackType =
 
 export type PromptInstanceWithUsernameAndTranslations = PromptInstance & {
   user: { name: string };
-  prompt: { translations: Prisma.JsonValue };
+  prompt: { translations: Prisma.JsonValue; rarityLevel: number };
 };
 
 export type PromptInstanceWithPrompt = PromptInstance & { prompt: Prompt };
