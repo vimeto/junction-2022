@@ -43,19 +43,23 @@ const seedPrompts = async () => {
   const dataB = {
     activityLevel: 10,
     rarityLevel: 10,
-    feedbackType: "freeText",
+    feedbackType: "freeText"  as "freeText" | "freeTextWithPic" | "multipleChoise" | "markCompleted",
     translations: {
       en: {
         title: "Take a nap",
         description: "You are tired, sleep pls",
         inputTitle: "How was it",
         submit: "Save",
+        imageButton: "",
+        enumValues: {},
       },
       fi: {
         title: "Mene päikkäreille",
         description: "Nyt päikkäreille broidi",
         inputTitle: "Miltä tuntui päikkärit",
         submit: "Tallenna!",
+        imageButton: "",
+        enumValues: {},
       },
     }
   }
