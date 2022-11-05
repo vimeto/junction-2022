@@ -35,7 +35,6 @@ const TaskComponent = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Button onClick={() => setCompleted(false)}>Go back</Button>
               <div className="w-full pt-4">
                 <Feedback promptInstanceWithPrompt={promptInstanceWithPrompt} />
               </div>

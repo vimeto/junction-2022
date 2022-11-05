@@ -55,18 +55,24 @@ const Feedback = ({ promptInstanceWithPrompt }: Props) => {
     try {
       // promptInstanceWithPrompt.i
       const feedbackData = new FormData();
-      feedbackData.append("inputValue", data.inputValue);
-      feedbackData.append("enumValue", data.enumValue);
-      feedbackData.append("share", data.share);
+      feedbackData.append("inputValue", data.inputValue ?? "");
+      feedbackData.append("enumValue", data.enumValue ?? "");
+      feedbackData.append("share", data.share ?? "");
       if (data.images?.length) {
-        feedbackData.append("file", data.images.length ? data.images[0] : undefined);
+        feedbackData.append(
+          "file",
+          data.images.length ? data.images[0] : undefined
+        );
       }
       console.log(data);
       setLoading(true);
-      const res = await fetch(`/api/promptInstances/feedBack/${promptInstanceWithPrompt.id}`, {
-        method: "POST",
-        body: feedbackData,
-      });
+      const res = await fetch(
+        `/api/promptInstances/feedBack/${promptInstanceWithPrompt.id}`,
+        {
+          method: "POST",
+          body: feedbackData,
+        }
+      );
       setLoading(false);
 
       if (res.status >= 400) throw new Error("Failed to save activity");

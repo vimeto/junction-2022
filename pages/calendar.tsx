@@ -28,9 +28,7 @@ const Calendar: NextPage<{ promptInstances: PromptInstances }> = ({
           return (
             <div className="pb-4" key={p.id}>
               <Card>
-                <CardTitle>
-                  {format(new Date(p.createdAt), "dd-MM-yyyy")}
-                </CardTitle>
+                <CardTitle>{format(new Date(p.date), "dd-MM-yyyy")}</CardTitle>
                 {p.imageSecureURL ? (
                   <CardWithImage imageUrl={p.imageSecureURL}>
                     <div className="font-bold mb-1">{translations.title}</div>

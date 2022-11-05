@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 
 const buttonStyles = cva(
-  "flex items-center justify-center px-4 py-2 rounded-full font-medium focus:outline-none",
+  "flex items-center justify-center px-4 py-2 rounded-full font-medium focus:outline-none overflow-hidden",
   {
     variants: {
       intent: {

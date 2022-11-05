@@ -97,7 +97,7 @@ const TaskContainer = ({ locale, user }: Props) => {
                 completed={completed}
                 setCompleted={setCompleted}
               />
-              {userPromptLength <= 1 && (
+              {userPromptLength <= 1 && !completed && (
                 <div className="mt-4 flex items-center justify-center">
                   <div className="pr-2">I cannot do this one.</div>
                   <TextButton
