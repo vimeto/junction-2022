@@ -26,7 +26,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       email: session.user.email || "",
     },
     include: {
-      following: true,
+      following: {
+        where: {
+          following: {
+            some: {
+              email: session.user.email || "",
+            },
+          },
+        },
+      },
       promptInstances: {
         where: {
           date: {
