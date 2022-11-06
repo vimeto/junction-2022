@@ -5,7 +5,8 @@ const getSecureUrl = async (fileLocation: string) => {
     projectId: process.env.STORAGE_PROJECT_ID,
     credentials: {
       client_email: process.env.STORAGE_CLIENT_EMAIL,
-      private_key: atob(process.env.STORAGE_PRIVATE_KEY || ""),
+      private_key: (process.env.STORAGE_PRIVATE_KEY || "").replace(/\\n/g, '\n'),
+      // private_key: atob(process.env.STORAGE_PRIVATE_KEY_BASE || ""),
     },
   });
 
