@@ -54,7 +54,11 @@ export const FormStepper = ({ handleFinish }: { handleFinish: () => void }) => {
   const [step, setStep] = useState<number>(0);
 
   return (
+<<<<<<< Updated upstream
     <div className="flex items-center w-full h-full flex-col justify-between">
+=======
+    <div className="absolute bottom-20 flex items-center w-full flex-col justify-between -translate-x-1/2 left-1/2 max-w-sm">
+>>>>>>> Stashed changes
       <div />
       <div>{getStepContent(step)}</div>
       <div className="justify-self-end pb-16 flex items-center flex-col">
