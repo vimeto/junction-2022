@@ -46,8 +46,8 @@ export const ActivityStep = () => {
             }
           >
             <div className="p-2 flex flex-col items-center justify-center">
-              <CardTitle>High</CardTitle>
-              <CardText>example</CardText>
+              <CardTitle>{t("steps.activity.high")}</CardTitle>
+              <CardText>{t("steps.activity.example")}</CardText>
             </div>
           </Card>
         </div>
@@ -60,8 +60,8 @@ export const ActivityStep = () => {
             }
           >
             <div className="p-2 flex flex-col items-center justify-center">
-              <CardTitle>Medium</CardTitle>
-              <CardText>example</CardText>
+              <CardTitle>{t("steps.activity.medium")}</CardTitle>
+              <CardText>{t("steps.activity.example")}</CardText>
             </div>
           </Card>
         </div>
@@ -72,8 +72,8 @@ export const ActivityStep = () => {
             isActive={value === ActivityLevel.Low ? "primaryActive" : undefined}
           >
             <div className="p-2 flex flex-col items-center justify-center">
-              <CardTitle>Low</CardTitle>
-              <CardText>example</CardText>
+              <CardTitle>{t("steps.activity.low")}</CardTitle>
+              <CardText>{t("steps.activity.example")}</CardText>
             </div>
           </Card>
         </div>
@@ -106,7 +106,7 @@ export const SharingStep = () => {
             isActive={value ? "primaryActive" : undefined}
           >
             <div className="p-2 flex flex-col items-center justify-center">
-              <CardTitle>Share</CardTitle>
+              <CardTitle>{t("steps.sharing.share")}</CardTitle>
             </div>
           </Card>
         </div>
@@ -117,7 +117,7 @@ export const SharingStep = () => {
             isActive={!value ? "primaryActive" : undefined}
           >
             <div className="p-2 flex flex-col items-center justify-center">
-              <CardTitle>{`Don't share`}</CardTitle>
+              <CardTitle>{t("steps.sharing.dontShare")}</CardTitle>
             </div>
           </Card>
         </div>
