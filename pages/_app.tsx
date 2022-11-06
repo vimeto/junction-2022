@@ -21,6 +21,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <Script src="/viewport.js" />
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Head>
       <NextIntlProvider locale={locale} messages={messages[l]}>
         <Layout>
           <Component {...pageProps} />
