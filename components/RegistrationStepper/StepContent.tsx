@@ -4,6 +4,7 @@ import { useFormContext, useController } from "react-hook-form";
 import { Card } from "@ui/Card/Card";
 import { CardTitle } from "@ui/Card/CardTitle";
 import { CardText } from "@ui/Card/CardText";
+import { Ping } from "@ui/Ping";
 
 export const IntroStep = () => {
   const t = useTranslations("registration");
@@ -12,6 +13,27 @@ export const IntroStep = () => {
     <div className="w-3/4 mx-auto">
       <h2 className="font-semibold text-xl">{t("steps.intro.header")}</h2>
       <div>{t("steps.intro.description")}</div>
+    </div>
+  );
+};
+
+export const RarityStep = () => {
+  const t = useTranslations("registration");
+
+  return (
+    <div className="w-3/4 mx-auto">
+      <h2 className="font-semibold text-xl">{t("steps.rarity.header")}</h2>
+      <div>{t("steps.rarity.description")}</div>
+      <div className="grid grid-cols-2 pt-2">
+        <div>Common</div>
+        <Ping rarity={0} />
+        <div>Rare</div>
+        <Ping rarity={10} />
+        <div>Epic</div>
+        <Ping rarity={20} />
+        <div>Legendary</div>
+        <Ping rarity={30} />
+      </div>
     </div>
   );
 };
@@ -95,7 +117,7 @@ export const SharingStep = () => {
   });
 
   return (
-    <div>
+    <div className="w-3/4 mx-auto">
       <h2>{t("steps.sharing.header")}</h2>
       <div>{t("steps.sharing.description")}</div>
       <div className="pt-6">
