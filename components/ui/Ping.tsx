@@ -31,7 +31,7 @@ export const Ping = ({ rarity = 0 }: Props) => {
         className={`animate-ping absolute inline-flex h-3.5 w-3.5 rounded-full opacity-75 ${s}`}
       ></span>
       <span
-        className={`relative inline-flex rounded-full h-3.5 w-3.5 bg-sky-500 ${p}`}
+        className={`relative inline-flex rounded-full h-3.5 w-3.5 ${p}`}
       ></span>
     </span>
   );

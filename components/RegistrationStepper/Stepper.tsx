@@ -2,23 +2,36 @@ import { Button } from "@ui/Button/Button";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { ActivityStep, IntroStep, SharingStep } from "./StepContent";
+import {
+  ActivityStep,
+  IntroStep,
+  RarityStep,
+  SharingStep,
+} from "./StepContent";
 
 const Steps = ({ step }: { step: number }) => (
-  <ul className="steps">
-    <li
-      className={`step ${step >= 0 ? "step-primary" : ""}`}
-      data-content=""
-    ></li>
-    <li
-      className={`step ${step >= 1 ? "step-primary" : ""}`}
-      data-content=""
-    ></li>
-    <li
-      className={`step ${step >= 2 ? "step-primary" : ""}`}
-      data-content=""
-    ></li>
-  </ul>
+  <div className="flex items-center justify-evenly transition-colors">
+    <div
+      className={`badge badge-md mx-2 border-none ${
+        step >= 0 ? "bg-cyan-300" : ""
+      }`}
+    />
+    <div
+      className={`badge badge-md mx-2 border-none ${
+        step >= 1 ? "bg-cyan-300" : ""
+      }`}
+    />
+    <div
+      className={`badge badge-md mx-2 border-none ${
+        step >= 2 ? "bg-cyan-300" : ""
+      }`}
+    />
+    <div
+      className={`badge badge-md mx-2 border-none ${
+        step >= 3 ? "bg-cyan-300" : ""
+      }`}
+    />
+  </div>
 );
 
 const getStepContent = (step: number) => {
@@ -26,8 +39,10 @@ const getStepContent = (step: number) => {
     case 0:
       return <IntroStep />;
     case 1:
-      return <ActivityStep />;
+      return <RarityStep />;
     case 2:
+      return <ActivityStep />;
+    case 3:
       return <SharingStep />;
     default:
       return "Unknown step";
@@ -53,14 +68,14 @@ export const FormStepper = ({ handleFinish }: { handleFinish: () => void }) => {
             </Button>
           </div>
           <div className="p-4">
-            {step < 2 ? (
+            {step < 3 ? (
               <Button onClick={() => setStep(step + 1)}>{t("next")}</Button>
             ) : (
               <Button onClick={handleFinish}>{t("finish")}</Button>
             )}
           </div>
         </div>
-        <div className="p-8">
+        <div className="p-2">
           <Steps step={step} />
         </div>
       </div>

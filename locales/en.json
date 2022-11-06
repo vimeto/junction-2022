@@ -24,6 +24,10 @@
         "header": "A couple facts about you",
         "description": "It will helps us choose more fitting tasks for you."
       },
+      "rarity": {
+        "header": "Each task or quest has a rarity level",
+        "description": "The more active you are the better chance you'll have of getting rare activities"
+      },
       "activity": {
         "header": "What is your activity level",
         "description": "It will helps us choose tasks that you will feel comfortable with",
