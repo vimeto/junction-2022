@@ -21,15 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <Script src="/viewport.js" />
-      <style jsx>{`
-        body {
-          min-height: 100vh;
-          min-height: -webkit-fill-available;
-        }
-        html {
-          height: -webkit-fill-available;
-        }
-      `}</style>
       <NextIntlProvider locale={locale} messages={messages[l]}>
         <Layout>
           <Component {...pageProps} />

@@ -7,14 +7,18 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children }) => (
   <>
-    <div className="flex items-center h-screen w-screen">
+    <div className="max-w-sm mx-auto">
+      <div className="pb-16">{children}</div>
+      <Navigation />
+    </div>
+    {/* <div className="flex items-center h-screen w-screen">
       <div className="max-w-sm w-full border-black mx-auto border rounded-md h-screen max-h-screen overflow-hidden relative">
         <div className="w-full max-h-full overflow-scroll pb-16 h-full">
           {children}
         </div>
         <Navigation />
       </div>
-    </div>
+    </div> */}
   </>
 );
 
