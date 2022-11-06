@@ -20,13 +20,82 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const today = new Date();
 
+  const userWithFriends = await prisma.user.findUnique({
+    where: {
+      email: session.user.email || "",
+    },
+    include: {
+      following: {
+        where: {
+          following: {
+            some: {
+              email: session.user.email || "",
+            }
+          }
+        }
+      }
+    }
+  });
+
+  const userWithFriendRequests = await prisma.user.findUnique({
+    where: {
+      email: session.user.email || "",
+    },
+    include: {
+      followedBy: {
+        where: {
+          followedBy: {
+            none: {
+              email: session.user.email || "",
+            }
+          }
+        }
+      }
+    }
+  });
+
+
+  const userWithNewFriendRequest = await prisma.user.update({
+    where: {
+      email: session.user.email || "",
+    },
+    data: {
+      following: {
+        connect: {
+          email: "____new__email____"
+        }
+      }
+    }
+  });
+
+  const userWithAcceptedFriendRequest = await prisma.user.update({
+    where: {
+      email: session.user.email || "",
+    },
+    data: {
+      following: {
+        connect: {
+          email: "____new__email____"
+        }
+      }
+    }
+  })
+
   // returns user with list of today's promptinstances
   const userWithPrompts = await prisma.user.findUnique({
     where: {
       email: session.user.email || "",
     },
     include: {
-      following: true,
+      following: {
+        where: {
+          following: {
+            some: {
+              email: session.user.email || "",
+            }
+          }
+        },
+      },
       promptInstances: {
         where: {
           date: {
