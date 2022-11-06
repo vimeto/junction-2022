@@ -26,11 +26,17 @@
       },
       "activity": {
         "header": "What is your activity level",
-        "description": "It will helps us choose tasks that you will feel comfortable with"
+        "description": "It will helps us choose tasks that you will feel comfortable with",
+        "high": "High",
+        "example": "Example",
+        "medium": "Medium",
+        "low": "Low"
       },
       "sharing": {
         "header": "Would you prefer to share activities with friends?",
-        "description": "Allos sharing your activities when you feel like it"
+        "description": "Allow sharing your activities when you feel like it",
+        "share": "Share",
+        "dontShare": "Don't share"
       }
     }
   }

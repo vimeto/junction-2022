@@ -21,16 +21,22 @@
   "registration": {
     "steps": {
       "intro": {
-        "header": "A couple facts about you",
-        "description": "It will helps us choose more fitting tasks for you."
+        "header": "Pari kysymystä sinusta",
+        "description": "Tämä auttaa meitä valitsemaan sinulle sopivia tehtäviä."
       },
       "activity": {
-        "header": "What is your activity level",
-        "description": "It will helps us choose tasks that you will feel comfortable with"
+        "header": "Mikä on aktiivisuus tasosi",
+        "description": "Tämä auttaa meitä valitsemaan sinulle tehtäviä, jotka ovat sinulle sopivia",
+        "high": "Korkea",
+        "example": "Esimerkki",
+        "medium": "Keskiverto",
+        "low": "Matala"
       },
       "sharing": {
-        "header": "Would you prefer to share activities with friends?",
-        "description": "Allos sharing your activities when you feel like it"
+        "header": "Haluatko jakaa tapahtumiasi kavereiden kanssa?",
+        "description": "Voit jakaa tapahtumiasi myös myöhemmin, kuin siltä tuntuu",
+        "share": "Jaa",
+        "dontShare": "Älä jaa"
       }
     }
   }
