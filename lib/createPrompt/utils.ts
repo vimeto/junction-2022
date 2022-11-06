@@ -50,7 +50,8 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
   const possiblePrompts = await prisma.prompt.findMany({
     where: {
       activityLevel: activityLevel,
-      rarityLevel: newRarityLevel
+      rarityLevel: newRarityLevel,
+      feedbackType: "freeTextWithPic"
     }
   });
 

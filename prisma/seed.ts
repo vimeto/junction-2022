@@ -127,6 +127,8 @@ const seed = async () => {
   await deletePrompts();
   const listOfPromptIds = await seedPrompts();
   await seedPromptInstances(listOfPromptIds, mainuser, seconduser);
+
+  // console.log(btoa(process.env.STORAGE_PRIVATE_KEY_BASE || ""))
 };
 
 seed();

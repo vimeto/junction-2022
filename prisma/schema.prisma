@@ -86,7 +86,7 @@ model PromptInstance {
   userId     String
 
   imageLocation      String?
-  imageSecureURL     String?
+  imageSecureURL     String?   @db.Text()
   imageSecureExpires DateTime?
 
   createdAt DateTime @default(now())
