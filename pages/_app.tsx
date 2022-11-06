@@ -9,6 +9,7 @@ import en from "../locales/en.json";
 import se from "../locales/se.json";
 import Layout from "../components/Layout";
 import Head from "next/head";
+import Script from "next/script";
 
 const messages = { fi, en, se };
 
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <SessionProvider session={pageProps.session}>
+      <Script src="/viewport.js" />
       <NextIntlProvider locale={locale} messages={messages[l]}>
         <Layout>
           <Component {...pageProps} />
