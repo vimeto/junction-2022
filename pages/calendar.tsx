@@ -18,8 +18,6 @@ type PromptInstances = PromptInstanceWithPrompt[];
 const Calendar: NextPage<{ promptInstances: PromptInstances }> = ({
   promptInstances,
 }) => {
-  console.log(promptInstances);
-
   return (
     <AnimatePresence>
       <motion.div
