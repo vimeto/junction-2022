@@ -11,6 +11,16 @@ function Profile() {
   const t = useTranslations("actions");
   return (
     <div>
+      <div className="h-52 mt-5">
+        <div className="shadow-lg bg-gray-300 rounded-full mx-auto h-32 w-32"></div>
+        <div className="text-center text-lg font-bold mt-4">Username</div>
+        <div className="flex flex-row justify-center gap-4">
+          <div>
+            <div className="text-center">Friends</div>
+            <div className="text-center font-bold">143</div>
+          </div>
+        </div>
+      </div>
       <div className="font-bold text-xl text-black pt-4 px-4">Profile</div>
       <div className="flex flex-col items-start space-between pt-2 px-2 h-full">
         <div className="rounded-lg w-full shadow-2xl flex flex-col items-start space-between pt-6 h-full">
