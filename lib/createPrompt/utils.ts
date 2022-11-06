@@ -51,7 +51,6 @@ export const createNewPrompt = async (activityLevel: number, user: User) => {
     where: {
       activityLevel: activityLevel,
       rarityLevel: newRarityLevel,
-      feedbackType: "freeTextWithPic"
     }
   });
 
