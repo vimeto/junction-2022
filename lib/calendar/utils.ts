@@ -40,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       user: {
         email: usr.email
       },
+      completed: true,
     },
     include: {
       prompt: true,
