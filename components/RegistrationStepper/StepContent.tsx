@@ -25,13 +25,13 @@ export const RarityStep = () => {
       <h2 className="font-semibold text-xl">{t("steps.rarity.header")}</h2>
       <div>{t("steps.rarity.description")}</div>
       <div className="grid grid-cols-2 pt-2">
-        <div>Common</div>
+        <div>{t("steps.rarity.common")}</div>
         <Ping rarity={0} />
-        <div>Rare</div>
+        <div>{t("steps.rarity.rare")}</div>
         <Ping rarity={10} />
-        <div>Epic</div>
+        <div>{t("steps.rarity.epic")}</div>
         <Ping rarity={20} />
-        <div>Legendary</div>
+        <div>{t("steps.rarity.legendary")}</div>
         <Ping rarity={30} />
       </div>
     </div>

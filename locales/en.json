@@ -26,7 +26,11 @@
       },
       "rarity": {
         "header": "Each task or quest has a rarity level",
-        "description": "The more active you are the better chance you'll have of getting rare activities"
+        "description": "The more active you are the better chance you'll have of getting rare activities",
+        "common": "Common",
+        "rare": "Rare",
+        "epic": "Epic",
+        "legendary": "Legendare"
       },
       "activity": {
         "header": "What is your activity level",

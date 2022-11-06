@@ -25,12 +25,12 @@
         "description": "Tämä auttaa meitä valitsemaan sinulle sopivia tehtäviä."
       },
       "rarity": {
-        "header": "Each task or quest has a rarity level",
-        "description": "The more active you are the better chance you'll have of getting rare activities"
-      },
-      "rarity": {
-        "header": "Each task or quest has a rarity level",
-        "description": "The more active you are the better chance you'll have of getting rare activities"
+        "header": "Kaikilla tehtävillä on eri harvinaisuus tasot",
+        "description": "Mitä aktiivisempi olet sitä suurempi todennäköisyys sinulla on saada harvinaisempi tehtävä",
+        "common": "Tavallinen",
+        "rare": "Harvinainen",
+        "epic": "Eepinen",
+        "legendary": "Legendaarinen"
       },
       "activity": {
         "header": "Mikä on aktiivisuus tasosi",
