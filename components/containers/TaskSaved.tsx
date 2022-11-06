@@ -20,7 +20,7 @@ const TaskSaved = ({ locale, user }: Props) => {
 
   return (
     <div className="flex flex-col items-center h-full justify-center">
-      <div className="flex flex-col justify-center w-3/4">
+      <div className="flex flex-col justify-center w-3/4 pt-4">
         <Card>
           <div className="flex items-center justify-center">
             <CardTitle>
