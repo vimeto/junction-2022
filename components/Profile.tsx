@@ -31,13 +31,34 @@ function Profile({ userWithFriends, userWithFriendRequests, locale }: Props) {
 
   const acceptFriendRequest = async (id: string) => {
     try {
-      const res = await fetch("/api/friendRequest", {
+      const res = await fetch("/api/friendRequest/accept", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           id,
+        }),
+      });
+
+      Router.push("/profile");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const createFriendRequst = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    try {
+      // @ts-ignore next-line
+      const email = event.target.email.value;
+      const res = await fetch("/api/friendRequest/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
         }),
       });
 
@@ -198,7 +219,10 @@ function Profile({ userWithFriends, userWithFriendRequests, locale }: Props) {
           </Link>
         </div>
         <div className="rounded-lg w-full shadow-aapon-varjo flex flex-col items-start space-between pb-4 h-full">
-          <form className="pt-4 flex flex-col w-full">
+          <form
+            className="pt-4 flex flex-col w-full"
+            onSubmit={createFriendRequst}
+          >
             <div className="relative  text-sky-500 focus-within:text-black">
               <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <UserIcon />
@@ -207,6 +231,7 @@ function Profile({ userWithFriends, userWithFriendRequests, locale }: Props) {
                 className="py-2 text-sm text-black bg-white rounded-xl pl-10 focus:outline-none focus:bg-grey-400 w-full"
                 defaultValue=""
                 placeholder="Add friends"
+                name="email"
               />
               <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                 <button
