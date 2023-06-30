@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { CardText } from './CardText';
 
 const cardWithImageStyles = cva(
-  'flex flex-row items-center space-x-4',
+  'flex flex-row items-center justify-between space-x-4',
 );
 
 interface ExtraTypes {
@@ -20,7 +20,7 @@ export function CardWithImage({ imageUrl, imageAlt, textColor, ...props }: Props
   return (
     <div className={cardWithImageStyles()}>
         <CardText textColor={textColor} {...props}/>
-        <img className='h-12 w-12' src={imageUrl} alt={imageAlt}/>
+        <img className='h-20 w-20 object-cover' src={imageUrl} alt={imageAlt}/>
     </div>
   )
 }
